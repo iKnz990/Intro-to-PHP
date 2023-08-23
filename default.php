@@ -1,33 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>WDV341 Class Assignments</title>
-        <link rel="icon" type="image/x-icon" href="favicon.png">
-        <meta charset="utf-8">
-        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-        <meta content="WDV341 Class Assignments" name="description">
-        <meta content="width=device-width, initial-scale=1" name="viewport">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
-        <link href="./css/style.css" rel="stylesheet">
+<?php include 'global_header.php'; ?>
 
-    </head>
-    <body>
-        <nav class="navigation">
-            <nav class="navigation">
-                <a href=".\">
-                    <h3>Home</h3>
-                </a>
-                <a href=".\definitions">
-                    <h3>2-1</h3>
-                </a>
-            </nav>
-        </nav>
         <div class="content">
             <h1>Welcome to WDV341 Class Assignments</h1>
             <p>Here you will find all the assignments and resources for WDV341. Feel free to explore and reach out if you have any questions.</p>
             <!-- Add links to assignments and resources here . -->
         </div>
-    </body>
-</html>
+        
+<?php include 'global_footer.php'; ?>
