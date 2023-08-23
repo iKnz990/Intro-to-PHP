@@ -22,6 +22,11 @@ p {
     color: #727586;
     margin: 0px;
 }
+a {
+    cursor: pointer;
+    color: #bfadf2;
+    text-decoration: none;
+}
 a:hover {
     cursor: pointer;
     color: #673DE6;
