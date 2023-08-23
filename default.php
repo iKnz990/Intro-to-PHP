@@ -16,10 +16,10 @@
     <body>
         <nav class="navigation">
             <nav class="navigation">
-                <a href=".\default.html">
+                <a href=".\">
                     <h3>Home</h3>
                 </a>
-                <a href=".\definitions.html">
+                <a href=".\definitions">
                     <h3>2-1</h3>
                 </a>
             </nav>
