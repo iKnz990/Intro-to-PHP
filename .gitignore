@@ -1,31 +1,59 @@
-# Sensitive Information
+# PHP-specific
+/vendor/
+composer.lock
+composer.phar
+composer.json
+*.phar
 config.php
 
-# Environment Files
-.env
 
-# Dependency directories
-vendor/
+# Directories
 node_modules/
-
-# Cache and Temporary Files
-.cache/
-*.tmp
-*.swp
-
-# Build and Compiled Files
-dist/
-*.o
-*.exe
-
-# Logs and Databases
-*.log
-*.sql
-
-# System Files
-.DS_Store
-Thumbs.db
-
-# IDE and Editor Configurations
 .idea/
 .vscode/
+.DS_Store/
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Sensitive files
+.env
+.env.example
+.env.local
+.env.production
+
+# Cache and temp files
+*.cache
+*.bak
+*.swp
+*.swo
+*.tmp
+*.temp
+
+# Build artifacts
+/dist/
+/build/
+
+# Other
+*.sln
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.pidb
+*.userprefs
+*.csproj.user
+*.pubxml.user
+*.pfx
+*.publishsettings
