@@ -21,6 +21,9 @@
                     <h3>Home</h3>
                 </a>
                 <a href=".\definitions">
+                    <h3>1-2</h3>
+                </a>
+                <a href=".\php_basics">
                     <h3>2-1</h3>
                 </a>
             </nav>

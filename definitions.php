@@ -1,7 +1,10 @@
-<?php include 'global_header.php'; ?>
+<?php include 
+'./globals/global_header.php'; 
+
+?>
 
         <div class="content">
-            <h1>2-1: Download Git Client & Create a Repository</h1>
+            <h1>1-2: Download Git Client & Create a Repository</h1>
             <p>
                 <strong>Version Control Software</strong> : A system that records changes to files over time, allowing collaboration and tracking of modifications.
             </p>
@@ -27,4 +30,7 @@
             </p>
             <!-- Add links to assignments and resources here . -->
         </div>
-<?php include 'global_footer.php'; ?>
+<?php include 
+'./globals/global_footer.php'; 
+
+?>

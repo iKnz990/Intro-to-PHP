@@ -5,7 +5,8 @@ composer.phar
 composer.json
 *.phar
 config.php
-
+# It's the page template... I like less work; I'm lazy.
+template.php 
 
 # Directories
 node_modules/

@@ -1,4 +1,7 @@
-<?php include 'global_header.php'; ?>
+<?php include 
+'./globals/global_header.php'; 
+
+?>
 
         <div class="content">
             <h1>Welcome to WDV341 Class Assignments</h1>
@@ -6,4 +9,7 @@
             <!-- Add links to assignments and resources here . -->
         </div>
         
-<?php include 'global_footer.php'; ?>
+<?php include 
+'./globals/global_footer.php'; 
+
+?>
