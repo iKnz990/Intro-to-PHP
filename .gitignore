@@ -1,0 +1,31 @@
+# Sensitive Information
+config.php
+
+# Environment Files
+.env
+
+# Dependency directories
+vendor/
+node_modules/
+
+# Cache and Temporary Files
+.cache/
+*.tmp
+*.swp
+
+# Build and Compiled Files
+dist/
+*.o
+*.exe
+
+# Logs and Databases
+*.log
+*.sql
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# IDE and Editor Configurations
+.idea/
+.vscode/
