@@ -1,4 +1,7 @@
 <!-- global_header.php -->
+<?php 
+include './globals/global_functions.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -25,6 +28,12 @@
                 </a>
                 <a href=".\php_basics">
                     <h3>2-1</h3>
+                </a>
+                <a href=".\#">
+                    <h3>3-1</h3>
+                </a>
+                <a href=".\php_functions">
+                    <h3>4-1</h3>
                 </a>
             </nav>
         </nav>

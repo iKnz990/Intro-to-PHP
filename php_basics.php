@@ -1,7 +1,5 @@
 <?php
 include './globals/global_header.php';
-include './globals/global_variables.php';
-
 ?>
 
 <div class="content">
@@ -28,7 +26,7 @@ include './globals/global_variables.php';
 
 </div>
 
-<?php include 
-'./globals/global_footer.php'; 
+<?php 
+include './globals/global_footer.php'; 
 
 ?>

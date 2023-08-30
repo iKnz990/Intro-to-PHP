@@ -1,5 +1,5 @@
-<?php include 
-'./globals/global_header.php'; 
+<?php 
+include './globals/global_header.php'; 
 
 ?>
 
@@ -30,7 +30,7 @@
             </p>
             <!-- Add links to assignments and resources here . -->
         </div>
-<?php include 
-'./globals/global_footer.php'; 
+<?php 
+include './globals/global_footer.php'; 
 
 ?>
