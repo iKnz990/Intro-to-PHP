@@ -1,6 +1,6 @@
 <?php 
 include './globals/global_header.php'; 
-
+include './data/dbConnect.php';
 ?>
 
         <div class="content">
@@ -10,6 +10,10 @@ include './globals/global_header.php';
         </div>
         
 <?php 
-include './globals/global_footer.php'; 
+include './globals/global_footer.php';
 
+// Get MySQL server information - Just for Class Purposes
+$serverInfo = mysqli_get_server_info($conn);
+
+echo "Server Info: " . $serverInfo;
 ?>
