@@ -5,7 +5,7 @@
 
 <div class="content form-container">
   <form id="form1" name="form1" method="post" action="formHandler">
-    <legend class="form-title">Form</legend>
+    <legend class="form-title"><h3>HTML Form Processor</h3></legend>
     
     <div class="form-group">
       <label for="first_name" class="form-label">First Name:</label> 

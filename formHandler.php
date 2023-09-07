@@ -26,14 +26,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- No global headers for handler pages... -->
 <head>
 <link href="./css/style.css" rel="stylesheet">
-<meta http-equiv="refresh" content="5;url=form.php">
+<meta http-equiv="refresh" content="30;url=form">
 </head>
 
 <body>
-  <h1>Form Submitted Successfully</h1>
-  <p>Thank you, <?php echo $first_name . ' ' . $last_name; ?>. Your information has been received.</p>
-  <p>You will be redirected in 5 seconds...</p>
+  <div class="content">
+  <div class="content form-container">
+    <h1 class="form-title">Form Submitted Successfully</h1>
+    
+    <div class="form-group">
+      <p>Dear <?php echo $first_name; ?>,</p>
+    </div>
+    
+    <div class="form-group">
+      <p>Thank you for your interest in DMACC.</p>
+    </div>
+    
+    <div class="form-group">
+      <p>We have you listed as a <?php echo $academic_standing; ?> starting this fall.</p>
+    </div>
+    
+    <div class="form-group">
+      <p>You have declared <?php echo $program; ?> as your major.</p>
+    </div>
+    
+    <div class="form-group">
+      <p>Based upon your responses we will provide the following information in our confirmation email to you at <?php echo $customer_email; ?>.</p>
+    </div>
+    
+    <div class="form-group checkbox-group">
+      <ul>
+        <?php if(isset($contact_info)) { echo "<p>Based on your respose we will send additional information to $customer_email.</p>"; } ?>
+        <?php if(isset($contact_advisor)) { echo "<p>Based on your respose a $program advisor will reach out to you.</p>"; } ?>
+      </ul>
+    </div>
+    
+    <div class="form-group">
+      <p>You have shared the following comments which we will review:</p>
+      <p><?php echo $comments; ?></p>
+    </div>
+    
+    <div class="form-group">
+      <p>You will be redirected in 30 seconds...</p>
+    </div>
+  </div>
+  </div>
 </body>
+
 
 <?php
   } else {

@@ -125,6 +125,44 @@ h3{
   .form-button:hover {
     background-color: #bfadf2;
   }
+
+  .redirect-message {
+    font-weight: 700;
+    color: #673DE6;
+  }
+
+  ul, ol {
+    list-style-position: inside;
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+  
+  ul {
+    list-style-type: disc; 
+  }
+  
+  ol {
+    list-style-type: upper-roman;
+  }
+  
+  li {
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #727586;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  
+  /* If you want to style nested lists differently */
+  ul ul, ol ul {
+    list-style-type: circle;
+  }
+  
+  ol ol, ul ol {
+    list-style-type: lower-alpha;
+  }
   
 @media screen and (max-width: 580px) and (min-width: 0px) {
     h1, p {
