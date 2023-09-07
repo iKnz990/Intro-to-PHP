@@ -35,9 +35,9 @@
       <label for="program" class="form-label">Program:</label>
       <select name="program" id="program" class="form-select">
         <option value="default">Default option</option>
-        <option value="CIS">Computer Information Systems</option>
-        <option value="GD">Graphic Design</option>
-        <option value="WD">Web Development</option>
+        <option value="Computer Information Systems">Computer Information Systems</option>
+        <option value="Graphic Design">Graphic Design</option>
+        <option value="Web Development">Web Development</option>
       </select>
     </div>
     

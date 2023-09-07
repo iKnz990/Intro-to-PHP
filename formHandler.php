@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     <div class="form-group checkbox-group">
       <ul>
-        <?php if(isset($contact_info)) { echo "<p>Based on your respose we will send additional information to $customer_email.</p>"; } ?>
+        <?php if(isset($contact_info)) { echo "<p>Based on your respose we will send additional information to $customer_email.</p>"; } ?><br>
         <?php if(isset($contact_advisor)) { echo "<p>Based on your respose a $program advisor will reach out to you.</p>"; } ?>
       </ul>
     </div>
