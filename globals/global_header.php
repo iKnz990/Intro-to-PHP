@@ -1,6 +1,7 @@
 <!-- global_header.php -->
 <?php 
-include './globals/global_functions.php';
+include './data/dbConnect.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +35,9 @@ include './globals/global_functions.php';
                 </a>
                 <a href=".\php_functions">
                     <h3>4-1</h3>
+                </a>
+                <a href=".\form">
+                    <h3>Form</h3>
                 </a>
             </nav>
         </nav>

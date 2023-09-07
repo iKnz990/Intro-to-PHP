@@ -1,6 +1,6 @@
 <?php
 include './globals/global_header.php';
-include './data/dbConnect.php';
+include './globals/global_functions.php';
 ?>
 
 <div class="content">
