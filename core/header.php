@@ -19,20 +19,25 @@ include 'config.php';
 
     </head>
     <body>
+        <nav class="navigation">
             <nav class="navigation">
-                <a href="/WDV341/">
+                <a href=".\">
                     <h3>Home</h3>
                 </a>
-                <a href="/WDV341/modules/definitions/">
+                <a href="modules\definitions">
                     <h3>1-2</h3>
                 </a>
-                <a href="/WDV341/modules/phpBasics/">
+                <a href="modules\phpBasics">
                     <h3>2-1</h3>
                 </a>
-                <a href="/WDV341/modules/phpFunctions/">
+                <a href="#!">
+                    <h3>3-1</h3>
+                </a>
+                <a href="\phpFunctions">
                     <h3>4-1</h3>
                 </a>
-                <a href="/WDV341/modules/form/">
+                <a href="\form">
                     <h3>5-1</h3>
                 </a>
             </nav>
+        </nav>
