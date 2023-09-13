@@ -33,10 +33,10 @@ include 'config.php';
                 <a href="#!">
                     <h3>3-1</h3>
                 </a>
-                <a href="\phpFunctions">
+                <a href="modules\phpFunctions">
                     <h3>4-1</h3>
                 </a>
-                <a href="\form">
+                <a href="modules\form">
                     <h3>5-1</h3>
                 </a>
             </nav>
