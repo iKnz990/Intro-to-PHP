@@ -25,8 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!-- No global headers for handler pages... -->
 <head>
-<link href="./css/style.css" rel="stylesheet">
-<meta http-equiv="refresh" content="30;url=form">
+<link href="../../assets/css/style.css" rel="stylesheet">
+<meta http-equiv="refresh" content="30;url=index">
 </head>
 
 <body>
@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
   } else {
     // Redirect to form page if form is not submitted
-    header("Location: form.php");
+    header("Location: ./form.php");
   }
 
   include '../../core/footer.php';

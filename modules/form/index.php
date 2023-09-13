@@ -4,7 +4,7 @@ include '../../core/header.php';
 
 
 <div class="content form-container">
-  <form id="form1" name="form1" method="post" action="formHandler">
+  <form id="form1" name="form1" method="post" action="./handler.php">
     <legend class="form-title"><h3>HTML Form Processor</h3></legend>
     
     <div class="form-group">
@@ -66,7 +66,7 @@ include '../../core/header.php';
 </div>
 
   <?php
-    include './globals/global_footer.php'; 
+    include '../../core/footer.php'; 
    
     ?>
 
