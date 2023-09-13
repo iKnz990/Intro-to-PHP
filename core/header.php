@@ -2,6 +2,13 @@
 <?php 
 include 'config.php';
 
+// Determine the base URL based on the environment
+if ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1") {
+    $baseURL = "/WDV341/"; // For XAMPP environment
+} else {
+    $baseURL = "/"; // For live subdomain
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,26 +25,20 @@ include 'config.php';
         <link href="/WDV341/assets/css/style.css" rel="stylesheet">
 
     </head>
-    <body>
         <nav class="navigation">
-            <nav class="navigation">
-                <a href=".\">
-                    <h3>Home</h3>
-                </a>
-                <a href="modules\definitions">
-                    <h3>1-2</h3>
-                </a>
-                <a href="modules\phpBasics">
-                    <h3>2-1</h3>
-                </a>
-                <a href="#!">
-                    <h3>3-1</h3>
-                </a>
-                <a href="modules\phpFunctions">
-                    <h3>4-1</h3>
-                </a>
-                <a href="modules\form">
-                    <h3>5-1</h3>
-                </a>
-            </nav>
+            <a href="<?php echo $baseURL; ?>">
+                <h3>Home</h3>
+            </a>
+            <a href="<?php echo $baseURL; ?>modules/definitions/">
+                <h3>1-2</h3>
+            </a>
+            <a href="<?php echo $baseURL; ?>modules/phpBasics/">
+                <h3>2-1</h3>
+            </a>
+            <a href="<?php echo $baseURL; ?>modules/phpFunctions/">
+                <h3>4-1</h3>
+            </a>
+            <a href="<?php echo $baseURL; ?>modules/form/">
+                <h3>5-1</h3>
+            </a>
         </nav>
