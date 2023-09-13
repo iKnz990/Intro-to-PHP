@@ -1,6 +1,6 @@
 <?php
 
-include './data/dbConnect.php';
+include '../../core/config.php';
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -80,5 +80,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: form.php");
   }
 
-  include './globals/global_footer.php';
+  include '../../core/footer.php';
 ?>

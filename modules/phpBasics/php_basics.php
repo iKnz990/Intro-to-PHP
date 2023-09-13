@@ -1,6 +1,6 @@
 <?php
-include './globals/global_header.php';
-include './globals/global_functions.php';
+include '../../core/header.php';
+include '../../core/functions.php';
 ?>
 
 <div class="content">
@@ -28,6 +28,6 @@ include './globals/global_functions.php';
 </div>
 
 <?php 
-include './globals/global_footer.php'; 
+include '../../core/footer.php'; 
 
 ?>

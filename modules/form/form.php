@@ -1,5 +1,5 @@
-<?php
-  include './globals/global_header.php';
+<?php 
+include '../../core/header.php'; 
 ?>
 
 

@@ -1,6 +1,6 @@
 <!-- global_header.php -->
 <?php 
-include './data/dbConnect.php';
+include 'config.php';
 
 ?>
 <!DOCTYPE html>
@@ -15,29 +15,24 @@ include './data/dbConnect.php';
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
-        <link href="./css/style.css" rel="stylesheet">
+        <link href="/WDV341/assets/css/style.css" rel="stylesheet">
 
     </head>
     <body>
-        <nav class="navigation">
             <nav class="navigation">
-                <a href=".\">
+                <a href="/WDV341/">
                     <h3>Home</h3>
                 </a>
-                <a href=".\definitions">
+                <a href="/WDV341/modules/definitions/">
                     <h3>1-2</h3>
                 </a>
-                <a href=".\php_basics">
+                <a href="/WDV341/modules/phpBasics/">
                     <h3>2-1</h3>
                 </a>
-                <a href=".\#">
-                    <h3>3-1</h3>
-                </a>
-                <a href=".\php_functions">
+                <a href="/WDV341/modules/phpFunctions/">
                     <h3>4-1</h3>
                 </a>
-                <a href=".\form">
+                <a href="/WDV341/modules/form/">
                     <h3>5-1</h3>
                 </a>
             </nav>
-        </nav>
