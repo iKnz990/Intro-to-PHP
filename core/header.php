@@ -22,7 +22,6 @@ if ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1"
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
         <link href="<?= $baseURL ?>assets/css/style.css" rel="stylesheet">
-
     </head>
     <nav class="navigation">
         <a href="<?php echo $baseURL; ?>">
@@ -41,9 +40,11 @@ if ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1"
                 <h3>5-1</h3>
             </a>
             <div class="dropdown">
+                <a href="<?php echo $baseURL; ?>modules/calendarWidget/">                 
                 <h3>Calendar</h3>
+                </a>
                 <div class="dropdown-content">
-                    <a href="<?php echo $baseURL; ?>modules/calendarWidget/">Book a Date</a>
+                    <a href="<?php echo $baseURL; ?>modules/calendarWidget/book_service.php">Book a Date</a>
                     <a href="<?php echo $baseURL; ?>modules/calendarWidget/admin/">Admin Panel</a>
                 </div>
             </div>

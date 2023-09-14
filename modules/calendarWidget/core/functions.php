@@ -21,4 +21,12 @@ function checkAvailability($service_id, $booking_date, $booking_time) {
     $stmt->execute([$service_id, $booking_date, $booking_time]);
     return $stmt->rowCount() == 0; // return true if available, false otherwise
 }
+
+// Fetch all bookings
+function getAllBookings() {
+    global $pdo;
+    $stmt = $pdo->query("SELECT bookings.*, services.service_name, services.service_duration FROM bookings JOIN services ON bookings.service_id = services.service_id ORDER BY booking_date, booking_time");
+    return $stmt->fetchAll();
+}
+
 ?>
