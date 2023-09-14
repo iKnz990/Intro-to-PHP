@@ -22,7 +22,7 @@ if ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1"
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
-        <link href="/WDV341/assets/css/style.css" rel="stylesheet">
+        <link href="<?= $baseURL ?>assets/css/style.css" rel="stylesheet">
 
     </head>
         <nav class="navigation">

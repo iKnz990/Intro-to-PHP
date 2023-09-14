@@ -1,5 +1,6 @@
 <?php 
-include '../../core/header.php'; 
+include '../../core/header.php';
+
 ?>
 
 
@@ -65,8 +66,8 @@ include '../../core/header.php';
   </form>
 </div>
 
-  <?php
-    include '../../core/footer.php'; 
+<?php
+  include '../../core/footer.php';
    
-    ?>
+?>
 

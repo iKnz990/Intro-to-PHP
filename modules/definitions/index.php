@@ -1,5 +1,5 @@
 <?php 
-include '../../core/header.php'; 
+include '../../core/header.php';
 ?>
 
         <div class="content">
@@ -30,6 +30,7 @@ include '../../core/header.php';
             <!-- Add links to assignments and resources here . -->
         </div>
 <?php 
-include '../../core/footer.php'; 
+include '../../core/footer.php';
+ 
 
 ?>

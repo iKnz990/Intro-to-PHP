@@ -1,5 +1,5 @@
 <?php 
-include '../../core/header.php'; 
+include '../../core/header.php';
 include '../../core/functions.php';
 ?>
 
@@ -20,7 +20,7 @@ include '../../core/functions.php';
             ?>
         </div>
         
-<?php include 
-'../../core/footer.php'; 
+<?php 
+include '../../core/footer.php'; 
 
 ?>

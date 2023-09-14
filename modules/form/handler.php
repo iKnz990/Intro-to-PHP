@@ -1,6 +1,8 @@
 <?php
 
-include '../../core/config.php';
+include '../../core/header.php';
+include '../../core/functions.php';
+
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -23,10 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 
-<!-- No global headers for handler pages... -->
+
 <head>
-<link href="../../assets/css/style.css" rel="stylesheet">
-<meta http-equiv="refresh" content="30;url=index">
+<meta http-equiv="refresh" content="15;url=../form/index.php">
 </head>
 
 <body>
@@ -67,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     
     <div class="form-group">
-      <p>You will be redirected in 30 seconds...</p>
+      <p>You will be redirected in 15 seconds...</p>
     </div>
   </div>
   </div>
@@ -81,4 +82,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   include '../../core/footer.php';
-?>
+  ?>
