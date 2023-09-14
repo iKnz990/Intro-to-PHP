@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 <head>
-<meta http-equiv="refresh" content="15;url=../form/index.php">
+<meta http-equiv="refresh" content="15;<?php echo $baseURL; ?>modules/form/">
 </head>
 
 <body>
