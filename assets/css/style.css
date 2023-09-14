@@ -130,6 +130,41 @@ h3{
     font-weight: 700;
     color: #673DE6;
   }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: #bfadf2;
+    text-decoration: none;
+  }
+  .dropdown:hover{
+    cursor: pointer;
+    color: #673DE6;
+    text-decoration: underline;
+  }
+  .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+  }
+
+  .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+  }
+
+  .dropdown-content a:hover {
+      background-color: #673de675;
+  }
+
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
 
   ul, ol {
     list-style-position: inside;

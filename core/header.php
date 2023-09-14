@@ -1,4 +1,3 @@
-<!-- global_header.php -->
 <?php 
 include 'config.php';
 
@@ -25,8 +24,8 @@ if ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1"
         <link href="<?= $baseURL ?>assets/css/style.css" rel="stylesheet">
 
     </head>
-        <nav class="navigation">
-            <a href="<?php echo $baseURL; ?>">
+    <nav class="navigation">
+        <a href="<?php echo $baseURL; ?>">
                 <h3>Home</h3>
             </a>
             <a href="<?php echo $baseURL; ?>modules/definitions/">
@@ -41,4 +40,12 @@ if ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1"
             <a href="<?php echo $baseURL; ?>modules/form/">
                 <h3>5-1</h3>
             </a>
-        </nav>
+            <div class="dropdown">
+                <h3>Calendar</h3>
+                <div class="dropdown-content">
+                    <a href="<?php echo $baseURL; ?>modules/calendarWidget/">Book a Date</a>
+                    <a href="<?php echo $baseURL; ?>modules/calendarWidget/admin/">Admin Panel</a>
+                </div>
+            </div>
+    </nav>
+

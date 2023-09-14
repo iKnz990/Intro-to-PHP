@@ -16,12 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contact_advisor = isset($_POST['contact_advisor']) ? 'Yes' : 'No';
     $comments = filter_input(INPUT_POST, 'comments', FILTER_SANITIZE_STRING);
 
-    // Store the sanitized data into the database
+    // Store the sanitized data into the database using PDO
     $sql = "INSERT INTO form_data (first_name, last_name, customer_email, academic_standing, program, contact_info, contact_advisor, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssss", $first_name, $last_name, $customer_email, $academic_standing, $program, $contact_info, $contact_advisor, $comments);
-    $stmt->execute();
-
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$first_name, $last_name, $customer_email, $academic_standing, $program, $contact_info, $contact_advisor, $comments]);
 
 ?>
 
