@@ -36,6 +36,10 @@ The `WDV341` repository contains a collection of PHP projects and assignments. I
    - **TODOs**:
      - Implement Booking Delete/Edit functionality.
      - Implement Sorting for Bookings and Services.
+     - Provide options to view bookings and services for specific days, weeks, or months.
+     - Add navigation controls to easily switch between different dates or time periods in the calendar.
+     - Enable searching by keywords, dates, or other relevant criteria.
+     - Set up logging and auditing mechanisms to track changes to bookings and services.
 
 ## Main Page
 - **index.php**: The main landing page of the repository.
