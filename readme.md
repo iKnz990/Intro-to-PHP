@@ -30,6 +30,12 @@ The `WDV341` repository contains a collection of PHP projects and assignments. I
    - **Path**: `modules/phpFunctions/index.php`
    - **Description**: Demonstrates various PHP functions.
 
+5. **Calendar Module**
+   - **Path**: `modules/calendarWidget/index.php`
+   - **Description**: A module for managing calendar-related tasks.
+   - **TODOs**:
+     - Implement Booking Delete/Edit functionality.
+     - Implement Sorting for Bookings and Services.
+
 ## Main Page
 - **index.php**: The main landing page of the repository.
-
