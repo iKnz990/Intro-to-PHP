@@ -7,7 +7,7 @@ composer.json
 config.php
 # It's the page template... I like less work; I'm lazy.
 template.php
-
+robots.txt
 
 # Directories
 node_modules/
@@ -19,7 +19,6 @@ node_modules/
 *.log
 *.sql
 *.sqlite
-dbConnect.php
 # OS generated files
 .DS_Store
 .DS_Store?
