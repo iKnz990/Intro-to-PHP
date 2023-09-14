@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contact_advisor = isset($_POST['contact_advisor']) ? 'Yes' : 'No';
     $comments = filter_input(INPUT_POST, 'comments', FILTER_SANITIZE_STRING);
 
-    // TODO: Store the sanitized data into the database
+    // Store the sanitized data into the database
     $sql = "INSERT INTO form_data (first_name, last_name, customer_email, academic_standing, program, contact_info, contact_advisor, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssssssss", $first_name, $last_name, $customer_email, $academic_standing, $program, $contact_info, $contact_advisor, $comments);
