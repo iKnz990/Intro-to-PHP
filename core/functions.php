@@ -51,6 +51,20 @@ function formatPhoneNumber($number) {
 function formatCurrency($number) {
     return '$' . number_format($number, 2);
 }
+
+// Social Media Links
+
+function getSocialMediaProfiles() {
+    return array(
+        'Facebook' => 'https://www.facebook.com/rednaxelanoctis/',
+        'Instagram' => 'https://www.instagram.com/nocturnalxmarketing/',
+        'Discord' => 'https://discord.gg/wjQyjHwz',
+        'GitHub' => 'https://github.com/iKnz990',
+        'LinkedIn' => 'https://www.linkedin.com/in/alexander-kelly-4a801b245/'
+    );
+}
+
+
 // *****End of the Line / Fill***** \\
 
 ?>

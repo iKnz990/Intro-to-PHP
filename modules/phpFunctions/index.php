@@ -1,8 +1,7 @@
 <?php 
 include '../../core/header.php';
-include '../../core/functions.php';
 ?>
-
+<div class="content-container">
         <div class="content">
             <h1>4-1: PHP Functions</h1>
             <?php
@@ -19,7 +18,7 @@ include '../../core/functions.php';
             echo "<p><strong>Formatted Currency:</strong> " . formatCurrency($assignedCurrency) . "</p><br>";          
             ?>
         </div>
-        
+    </div>
 <?php 
 include '../../core/footer.php'; 
 

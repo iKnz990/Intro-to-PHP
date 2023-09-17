@@ -1,7 +1,6 @@
 <?php
 
 include '../../core/header.php';
-include '../../core/functions.php';
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

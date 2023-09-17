@@ -1,7 +1,7 @@
 <?php 
 include '../../core/header.php';
 ?>
-
+<div class="content-container">
         <div class="content">
             <h1>1-2: Download Git Client & Create a Repository</h1>
             <p>
@@ -29,6 +29,7 @@ include '../../core/header.php';
             </p>
             <!-- Add links to assignments and resources here . -->
         </div>
+    </div>
 <?php 
 include '../../core/footer.php';
  

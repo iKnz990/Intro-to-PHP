@@ -1,3 +1,4 @@
+/* Main CSS */
 body {
     margin: 0px;
     display: flex;
@@ -68,7 +69,19 @@ h3{
     width: 100%;
     height: 100%;
   }
-.form-container {
+  .content-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: nowrap; /* Prevents wrapping of content */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  /* Forms */
+  .form-container {
     max-width: 550px;
     margin: 20px auto;
     padding: 20px;
@@ -131,6 +144,7 @@ h3{
     font-weight: 700;
     color: #673DE6;
   }
+  /* Drop Down Menu */
   .dropdown {
     position: relative;
     display: inline-block;
@@ -138,6 +152,7 @@ h3{
     color: #bfadf2;
     text-decoration: none;
   }
+
   .dropdown:hover{
     cursor: pointer;
     color: #673DE6;
@@ -166,7 +181,7 @@ h3{
   .dropdown:hover .dropdown-content {
       display: block;
   }
-
+  /* Lists */
   ul, ol {
     list-style-position: inside;
     padding-left: 20px;
@@ -191,7 +206,7 @@ h3{
     line-height: 1.5;
   }
   
-  /* If you want to style nested lists differently */
+  /* Nested Lists */
   ul ul, ol ul {
     list-style-type: circle;
   }
@@ -199,9 +214,10 @@ h3{
   ol ol, ul ol {
     list-style-type: lower-alpha;
   }
+  /* Calendar Admin Panel */
   .admin-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 20px auto;
     display: flex;
     flex-wrap: nowrap; /* Prevents wrapping of content */
@@ -211,8 +227,8 @@ h3{
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Admin Navigation Styles */
-.admin-nav {
+
+  .admin-nav {
     flex: 1;
     min-width: 220px;
     padding: 20px;
@@ -221,100 +237,139 @@ h3{
     border-right: 1px solid #673DE6;
     height: 100%;
     overflow-y: auto;
-}
+  }
 
-.admin-nav h3 {
+  .admin-nav h3 {
     font-size: 14px;
     margin-top: 0;
     border-bottom: 2px solid #bfadf2;
     padding-bottom: 10px;
-}
+  }
 
-.admin-nav ul {
+  .admin-nav ul {
     list-style-type: none;
     padding: 0;
-}
+  }
 
-.admin-nav ul li {
+  .admin-nav ul li {
     margin: 10px 0;
-}
+  }
 
-.admin-nav ul li a {
+  .admin-nav ul li a {
     color: #bfadf2;
     text-decoration: none;
     font-size: 16px;
     transition: color 0.3s;
-}
+  }
 
-.admin-nav ul li a:hover {
+  .admin-nav ul li a:hover {
     color: #673DE6;
     text-decoration: underline;
-}
-/* Content Styles */
-.content {
-  flex: 3;
-  padding: 20px;
-  width: 100%;
-  overflow-y: auto; /* Allows scrolling if content overflows */
-}
+  }
 
-.content h2, .content h3 {
+  /* Content Styles */
+  .content {
+    flex: 3;
+    padding: 20px;
+    width: 100%;
+    overflow-y: auto; /* Allows content to scroll */
+  }
+
+  .content h2, .content h3 {
     color: #333;
-}
+  }
 
-table {
+  table {
     width: 100%;
     border-collapse: collapse;
-}
+  }
 
-table, th, td {
+  table, th, td {
     border: 1px solid #ddd;
-}
+  }
 
-th, td {
+  th, td {
     padding: 8px 12px;
     text-align: left;
-}
+  }
 
-th {
+  th {
     background-color: #f2f2f2;
-}
+  }
 
-tr:hover {
+  tr:hover {
     background-color: #f5f5f5;
+  }
+
+/* Video Player */
+.video-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.form-input,
-.form-select,
-.form-textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.video-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0px;
+  text-align: center;
+  margin: 8px;
 }
 
-.form-button {
-    margin-right: 10px;
-    padding: 10px 20px;
-    background-color: #673DE6;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.video-description {
+  font-size: 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: #727586;
+  margin: 0px 0px 20px 0px;
+  text-align: center;
 }
 
-.form-button:hover {
-    background-color: #bfadf2;
+/* YouTube Module Specific Styles */
+.youtube-video {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
 }
 
+/* HTML5 Module Specific Styles */
+.html5-video {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+}
+  /*Shows HTML5 CSS Features*/
+.html5-video video {
+  border-radius: 8px;
+  border: 4px solid #673DE6;
+  display: block;
+}
+/* Social Media Icons */
+.social-media-links a {
+  margin-right: 10px;
+  font-size: 24px;
+  color: #727586; 
+}
+
+.social-media-links a:hover {
+  color: #673DE6;
+}
+
+/* Responsive */
 @media screen and (max-width: 580px) and (min-width: 0px) {
-    h1, p {
-        width: 80%;
-    }
+  h1, p {
+    width: 80%;
+  }
 }
 @media screen and (min-width: 650px) and (min-height: 0px) and (max-height: 750px) {
-    h1 {
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
+  h1 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
 }

@@ -1,5 +1,6 @@
 <?php 
 include 'config.php';
+include 'functions.php';
 
 // Determine the base URL based on the environment
 if ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1") {
@@ -21,6 +22,8 @@ if ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1"
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
         <link href="<?= $baseURL ?>assets/css/style.css" rel="stylesheet">
     </head>
     <nav class="navigation">
@@ -46,6 +49,15 @@ if ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1"
                 <div class="dropdown-content">
                     <a href="<?php echo $baseURL; ?>modules/calendarWidget/book_service.php">Book a Date</a>
                     <a href="<?php echo $baseURL; ?>modules/calendarWidget/admin/">Admin Panel</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="<?php echo $baseURL; ?>modules/youtubeVideo/">                 
+                <h3>Video Elements</h3>
+                </a>
+                <div class="dropdown-content">
+                    <a href="<?php echo $baseURL; ?>modules/youtubeVideo/">YouTube Embed</a>
+                    <a href="<?php echo $baseURL; ?>modules/html5Video/">HTML5</a>
                 </div>
             </div>
     </nav>
