@@ -13,24 +13,24 @@ The `WDV341` repository contains a collection of PHP projects and assignments. I
 - **assets/css/style.css**: Main stylesheet for the projects.
 
 ## Modules
-1. **Definitions**
+1. **Definitions**:
    - **Path**: `modules/definitions/index.php`
    - **Description**: A module that provides definitions related to the course.
 
-2. **Form Handling**
+2. **Form Handling**:
    - **Path**: `modules/form/index.php`
    - **Handler**: `modules/form/handler.php`
    - **Description**: Demonstrates form handling in PHP.
 
-3. **PHP Basics**
+3. **PHP Basics**:
    - **Path**: `modules/phpBasics/index.php`
    - **Description**: Basic PHP exercises and demonstrations.
 
-4. **PHP Functions**
+4. **PHP Functions**:
    - **Path**: `modules/phpFunctions/index.php`
    - **Description**: Demonstrates various PHP functions.
 
-5. **Calendar Module**
+5. **Calendar Module**:
    - **Path**: `modules/calendarWidget/index.php`
    - **Description**: A module for managing calendar-related tasks.
    - **TODOs**:
@@ -40,6 +40,14 @@ The `WDV341` repository contains a collection of PHP projects and assignments. I
      - Add navigation controls to easily switch between different dates or time periods in the calendar.
      - Enable searching by keywords, dates, or other relevant criteria.
      - Set up logging and auditing mechanisms to track changes to bookings and services.
+
+6. **HTML5 Video Player**:
+   - **Path**: `modules/html5Video/index.php`
+   - **Description**: Demonstrates the use of an HTML5 video player.
+
+7. **YouTube Video Player**:
+   - **Path**: `modules/youtubeVideo/index.php`
+   - **Description**: Demonstrates embedding a YouTube video into a webpage.
 
 ## Main Page
 - **index.php**: The main landing page of the repository.

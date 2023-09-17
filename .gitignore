@@ -58,3 +58,4 @@ Thumbs.db
 *.pubxml.user
 *.pfx
 *.publishsettings
+liveconfig.php
