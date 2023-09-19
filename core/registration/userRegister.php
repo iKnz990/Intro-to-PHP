@@ -5,6 +5,7 @@ include 'register.php';
 ?>
 <div class="content-container">
 <div class="form-container">
+    
         <h2 class="form-title">Register</h2>
         <?php if (isset($errorMessage)) echo "<p class='error'>$errorMessage</p>"; ?>
         <form action="" method="post">
@@ -26,7 +27,7 @@ include 'register.php';
     </div>
 </div>
 <?php 
-include '../footer.php';
+include ROOT_DIR . 'core/footer.php';
 
 
 ?>

@@ -33,11 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
 
     $result = registerUser($data);
     if ($result['status']) {
-        header("Location: userLogin.php"); // Redirect to login page after successful registration
+        header("Location: userLogin.php?message=Registration Completed!"); // Redirect to login page after successful registration
         exit;
     } else {
         $errorMessage = $result['message'];
     }
 }
-
 ?>

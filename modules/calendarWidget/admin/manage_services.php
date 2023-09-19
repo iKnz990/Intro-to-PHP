@@ -66,23 +66,6 @@ $services = getAllServices();
         </div>
     </div>
 </div>
-<!-- Script to display a message if one is present in the URL -->
-<script>
-    // Function to get the value of a URL parameter
-    function getUrlParam(paramName) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(paramName);
-    }
-
-    // Check if the 'message' parameter exists in the URL
-    const message = getUrlParam('message');
-
-    // Check if a message is present and display it in the message container
-    if (message) {
-        const messageContainer = document.getElementById('messageContainer');
-        messageContainer.innerText = message;
-    }
-</script>
 
 <?php
 include '../../../core/footer.php';

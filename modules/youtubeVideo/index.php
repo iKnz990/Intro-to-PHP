@@ -17,5 +17,5 @@ include 'core/functions.php';
 </div>
 
 <?php
-include '../../core/footer.php';
+include ROOT_DIR . 'core/footer.php';
 ?>

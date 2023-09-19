@@ -7,5 +7,5 @@ $services = getAllServices();
 <h2>Use the Drop Down</h2>
 </div>
 <?php
-include '../../core/footer.php';
+include ROOT_DIR . 'core/footer.php';
 ?>

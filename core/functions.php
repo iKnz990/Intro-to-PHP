@@ -1,6 +1,8 @@
 <?php
 // Determine the base URL based on the environment
 define('BASE_URL', ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1") ? "/WDV341/" : "/");
+// Define the root directory for the project
+define('ROOT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/WDV341/');
 
 
 // *****2-1: PHP Basics***** \\

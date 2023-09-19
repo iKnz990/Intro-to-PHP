@@ -31,7 +31,7 @@ include '../../core/header.php';
         </div>
     </div>
 <?php 
-include '../../core/footer.php';
+include ROOT_DIR . 'core/footer.php';
  
 
 ?>

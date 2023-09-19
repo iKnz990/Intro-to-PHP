@@ -62,5 +62,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 <?php
-include '../../core/footer.php';
+include ROOT_DIR . 'core/footer.php';
 ?>

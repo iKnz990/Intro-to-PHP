@@ -75,8 +75,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
   } else {
     // Redirect to form page if form is not submitted
-    header("Location: ./form.php");
+    header("Location: /form.php");
   }
 
-  include '../../core/footer.php';
+  include ROOT_DIR . 'core/footer.php';
   ?>
