@@ -6,8 +6,8 @@ $services = getAllServices();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $serviceId = $_POST['service_id'];
-    $userName = $_POST['user_name'];
-    $userEmail = $_POST['user_email'];
+    $userName = htmlspecialchars($_POST['user_name'], ENT_QUOTES, 'UTF-8');
+    $userEmail = htmlspecialchars($_POST['user_email'], ENT_QUOTES, 'UTF-8');
     $bookingDate = $_POST['booking_date'];
     $bookingTime = $_POST['booking_time'];
 

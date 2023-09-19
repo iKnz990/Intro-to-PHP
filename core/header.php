@@ -2,13 +2,25 @@
 include 'config.php';
 include 'functions.php';
 
-// Determine the base URL based on the environment
-if ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1") {
-    $baseURL = "/WDV341/"; // For XAMPP environment
-} else {
-    $baseURL = "/"; // For live subdomain
-}
+// Start Session
+secureSessionStart();
 
+//Session Testing
+//echo "<pre>";
+//print_r($_SESSION);
+//echo "</pre>";
+
+// For the Errors
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Determine the base URL based on the environment
+$baseURL = ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1") ? "/WDV341/" : "/";
+
+// If logout is triggered
+if (isset($_GET['action']) && $_GET['action'] == 'logout') {
+    logout();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,10 +38,12 @@ if ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1"
 
         <link href="<?= $baseURL ?>assets/css/style.css" rel="stylesheet">
     </head>
+  
     <nav class="navigation">
-        <a href="<?php echo $baseURL; ?>">
+            <a href="<?php echo $baseURL; ?>">
                 <h3>Home</h3>
             </a>
+        <?php if (isLoggedIn()): ?> <!-- If user is logged in, add class to body -->
             <a href="<?php echo $baseURL; ?>modules/definitions/">
                 <h3>1-2</h3>
             </a>
@@ -60,5 +74,10 @@ if ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1"
                     <a href="<?php echo $baseURL; ?>modules/html5Video/">HTML5</a>
                 </div>
             </div>
+            <div class="user-info">
+                <span>Hello, <?php echo getLoggedInUser(); ?></span></br>
+                <a href="<?php echo $baseURL; ?>?action=logout">Logout</a>
+            </div>
+        <?php endif; ?>
     </nav>
 

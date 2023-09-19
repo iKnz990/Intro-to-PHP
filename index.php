@@ -1,17 +1,22 @@
 <?php 
-include 'core/header.php'; 
-
+include 'core/header.php';
 ?>
-<div class="content-container">
-        <div class="content">
-            <h1>Welcome to my PHP Portfolio</h1>
-            <p><strong>WDV341 & WDV351</strong></p>
 
-            <p>Feel free to reach out to me.</p>
-        </div>
+
+<div class="content-container">
+
+
+<?php if (!isLoggedIn()): ?>
+<h3>
+    <a href="<?php echo $baseURL;?>core/registration/userLogin.php">Login</a>
+ or 
+    <a href="<?php echo $baseURL;?>core/registration/userRegister.php">Register</a> 
+ to Continue
+</h3>
+<?php endif; ?>
+
 </div>
+
 <?php 
 include 'core/footer.php';
-
-
 ?>
