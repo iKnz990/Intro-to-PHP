@@ -5,26 +5,26 @@ include '../../core/header.php';
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Sanitize and capture form data
-    $first_name = filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_STRING);
-    $last_name = filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_STRING);
-    $customer_email = filter_input(INPUT_POST, 'customer_email', FILTER_SANITIZE_EMAIL);
-    $academic_standing = filter_input(INPUT_POST, 'academic_standing', FILTER_SANITIZE_STRING);
-    $program = filter_input(INPUT_POST, 'program', FILTER_SANITIZE_STRING);
-    $contact_info = isset($_POST['contact_info']) ? 'Yes' : 'No';
-    $contact_advisor = isset($_POST['contact_advisor']) ? 'Yes' : 'No';
-    $comments = filter_input(INPUT_POST, 'comments', FILTER_SANITIZE_STRING);
+  // Sanitize and capture form data using the sanitizeInput function
+  $first_name = sanitizeInput($_POST['first_name']);
+  $last_name = sanitizeInput($_POST['last_name']);
+  $customer_email = filter_input(INPUT_POST, 'customer_email', FILTER_SANITIZE_EMAIL);
+  $academic_standing = sanitizeInput($_POST['academic_standing']);
+  $program = sanitizeInput($_POST['program']);
+  $contact_info = isset($_POST['contact_info']) ? 'Yes' : 'No';
+  $contact_advisor = isset($_POST['contact_advisor']) ? 'Yes' : 'No';
+  $comments = sanitizeInput($_POST['comments']);
 
-    // Store the sanitized data into the database using PDO
-    $sql = "INSERT INTO form_data (first_name, last_name, customer_email, academic_standing, program, contact_info, contact_advisor, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$first_name, $last_name, $customer_email, $academic_standing, $program, $contact_info, $contact_advisor, $comments]);
+  // Store the sanitized data into the database using PDO
+  $sql = "INSERT INTO form_data (first_name, last_name, customer_email, academic_standing, program, contact_info, contact_advisor, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute([$first_name, $last_name, $customer_email, $academic_standing, $program, $contact_info, $contact_advisor, $comments]);
 
 ?>
 
 
 <head>
-<meta http-equiv="refresh" content="15;<?php echo $baseURL; ?>modules/form/">
+<meta http-equiv="refresh" content="15;<?= BASE_URL ?>modules/form/">
 </head>
 
 <body>

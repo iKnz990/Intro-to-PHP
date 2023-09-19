@@ -15,9 +15,6 @@ checkAuthorization();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Determine the base URL based on the environment
-$baseURL = ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1") ? "/WDV341/" : "/";
-
 // If logout is triggered
 if (isset($_GET['action']) && $_GET['action'] == 'logout') {
     logout();
@@ -37,48 +34,55 @@ if (isset($_GET['action']) && $_GET['action'] == 'logout') {
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-        <link href="<?= $baseURL ?>assets/css/style.css" rel="stylesheet">
+        <link href="<?= BASE_URL ?>assets/css/style.css" rel="stylesheet">
     </head>
   
     <nav class="navigation">
-            <a href="<?php echo $baseURL; ?>">
+            <a href="<?= BASE_URL ?>">
                 <h3>Home</h3>
             </a>
         <?php if (isLoggedIn()): ?> <!-- If user is logged in, add class to body -->
-            <a href="<?php echo $baseURL; ?>modules/definitions/">
+            <a href="<?= BASE_URL ?>modules/definitions/">
                 <h3>1-2</h3>
             </a>
-            <a href="<?php echo $baseURL; ?>modules/phpBasics/">
+            <a href="<?= BASE_URL ?>modules/phpBasics/">
                 <h3>2-1</h3>
             </a>
-            <a href="<?php echo $baseURL; ?>modules/phpFunctions/">
+            <a href="<?= BASE_URL ?>modules/phpFunctions/">
                 <h3>4-1</h3>
             </a>
-            <a href="<?php echo $baseURL; ?>modules/form/">
+            <a href="<?= BASE_URL ?>modules/form/">
                 <h3>5-1</h3>
             </a>
             <div class="dropdown">
-                <a href="<?php echo $baseURL; ?>modules/calendarWidget/">                 
+                <a href="<?= BASE_URL ?>modules/calendarWidget/">                 
                 <h3>Calendar</h3>
                 </a>
                 <div class="dropdown-content">
-                    <a href="<?php echo $baseURL; ?>modules/calendarWidget/book_service.php">Book a Date</a>
-                    <a href="<?php echo $baseURL; ?>modules/calendarWidget/admin/">Admin Panel</a>
+                    <a href="<?= BASE_URL ?>modules/calendarWidget/book_service.php">Book a Date</a>
+                    <a href="<?= BASE_URL ?>modules/calendarWidget/admin/">Admin Panel</a>
                 </div>
             </div>
             <div class="dropdown">
-                <a href="<?php echo $baseURL; ?>modules/youtubeVideo/">                 
+                <a href="<?= BASE_URL ?>modules/youtubeVideo/">                 
                 <h3>Video Elements</h3>
                 </a>
                 <div class="dropdown-content">
-                    <a href="<?php echo $baseURL; ?>modules/youtubeVideo/">YouTube Embed</a>
-                    <a href="<?php echo $baseURL; ?>modules/html5Video/">HTML5</a>
+                    <a href="<?= BASE_URL ?>modules/youtubeVideo/">YouTube Embed</a>
+                    <a href="<?= BASE_URL ?>modules/html5Video/">HTML5</a>
                 </div>
             </div>
             <div class="user-info">
                 <h3>Hello, <?php echo getLoggedInUser(); ?></h3>
-                <h3><a href="<?php echo $baseURL; ?>?action=logout">Logout</a></h3>
+                <h3><a href="<?= BASE_URL ?>?action=logout">Logout</a></h3>
             </div>
         <?php endif; ?>
     </nav>
+
+
+
+
+
+
+
 

@@ -1,4 +1,7 @@
 <?php
+// Determine the base URL based on the environment
+define('BASE_URL', ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1") ? "/WDV341/" : "/");
+
 
 // *****2-1: PHP Basics***** \\
 // Create a variable called yourName.  Assign it a value of your name.
@@ -146,14 +149,19 @@ function logout() {
 }
 // Function to Redirect to Index -- Only allows excluded files
 function checkAuthorization() {
-    $currentFile = basename($_SERVER['PHP_SELF']);
-    $excludedFiles = ['index.php', 'userRegister.php', 'userLogin.php'];
+    $currentFile = $_SERVER['PHP_SELF'];
+    $excludedFiles = [
+        BASE_URL . 'index.php', // root index.php
+        BASE_URL . 'core/registration/userRegister.php',
+        BASE_URL . 'core/registration/userLogin.php'
+    ];
 
     if (!isLoggedIn() && !in_array($currentFile, $excludedFiles)) {
-        header("Location: ../../../index.php");
+        header("Location: " . BASE_URL . "index.php"); // Redirect to project's root index.php
         exit;
     }
 }
+
 // Social Media Links
 function getSocialMediaProfiles() {
     return array(
