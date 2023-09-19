@@ -7,7 +7,7 @@ The `WDV341` repository contains a collection of PHP projects and assignments. I
 - **.htaccess**: Configuration file for use on web servers running the Apache Web Server software.
 - **core/footer.php**: Standard footer for the projects.
 - **core/header.php**: Standard header for the projects. This file contains the basic structure of the HTML header, including meta tags, title, and links to stylesheets.
-- **core/functions.php**: Contains common PHP functions used across the projects. This file provides utility functions such as `cleanInput()`, which sanitizes user input, and `sendEmail()`, which facilitates the sending of emails.
+- **core/functions.php**: Contains common PHP functions used across the projects.
 - **core/registration/login.php**: Handles the login functionality for users.
 - **core/registration/register.php**: Manages the registration process for new users.
 - **core/registration/userLogin.php**: Contains the user login form.
