@@ -4,6 +4,7 @@ include 'functions.php';
 
 // Start Session
 secureSessionStart();
+checkAuthorization();
 
 //Session Testing
 //echo "<pre>";
@@ -75,8 +76,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'logout') {
                 </div>
             </div>
             <div class="user-info">
-                <span>Hello, <?php echo getLoggedInUser(); ?></span></br>
-                <a href="<?php echo $baseURL; ?>?action=logout">Logout</a>
+                <h3>Hello, <?php echo getLoggedInUser(); ?></h3>
+                <h3><a href="<?php echo $baseURL; ?>?action=logout">Logout</a></h3>
             </div>
         <?php endif; ?>
     </nav>

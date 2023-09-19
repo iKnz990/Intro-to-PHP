@@ -87,18 +87,30 @@ function validateToken($token) {
     return false;
 }
 // Function to check if user is logged in
-function checkLoginAttempts($username) {
+function checkLoginAttempts($user_id) {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT COUNT(*) FROM login_attempts WHERE username = ? AND timestamp > DATE_SUB(NOW(), INTERVAL 15 MINUTE)");
-    $stmt->execute([$username]);
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM login_attempts WHERE user_id = ? AND timestamp > DATE_SUB(NOW(), INTERVAL 15 MINUTE)");
+    $stmt->execute([$user_id]);
     $attempts = $stmt->fetchColumn();
     return $attempts < 5; // Allow up to 5 attempts in 15 minutes
 }
 // Function to record login attempt
-function recordLoginAttempt($username) {
+function recordLoginAttempt($userId = null, $username = null) {
     global $pdo;
-    $stmt = $pdo->prepare("INSERT INTO login_attempts (username, timestamp) VALUES (?, NOW())");
-    $stmt->execute([$username]);
+    try {
+        if ($userId) {
+            // Record successful login attempt
+            $stmt = $pdo->prepare("INSERT INTO login_attempts (user_id, timestamp) VALUES (?, NOW())");
+            $stmt->execute([$userId]);
+        } else if ($username) {
+            // Record failed login attempt
+            $stmt = $pdo->prepare("INSERT INTO login_attempts (attempted_username, timestamp) VALUES (?, NOW())");
+            $stmt->execute([$username]);
+        }
+    } catch (PDOException $e) {
+        // Log the error or handle it as needed
+        error_log($e->getMessage());
+    }
 }
 // Function to start secure session
 function secureSessionStart() {
@@ -132,9 +144,17 @@ function logout() {
     header("Location: index.php");
     exit;
 }
+// Function to Redirect to Index -- Only allows excluded files
+function checkAuthorization() {
+    $currentFile = basename($_SERVER['PHP_SELF']);
+    $excludedFiles = ['index.php', 'userRegister.php', 'userLogin.php'];
 
+    if (!isLoggedIn() && !in_array($currentFile, $excludedFiles)) {
+        header("Location: ../../../index.php");
+        exit;
+    }
+}
 // Social Media Links
-
 function getSocialMediaProfiles() {
     return array(
         'Facebook' => 'https://www.facebook.com/rednaxelanoctis/',

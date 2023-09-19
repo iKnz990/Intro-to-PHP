@@ -11,18 +11,18 @@ function authenticateUser($username, $password) {
         return ['status' => false, 'message' => 'Too many login attempts. Please wait 15 minutes and try again.'];
     }
 
-    $stmt = $pdo->prepare("SELECT password FROM users WHERE username = ?");
+    $stmt = $pdo->prepare("SELECT user_id, password FROM users WHERE username = ?");
     $stmt->execute([$username]);
-    $hashedPassword = $stmt->fetchColumn();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($hashedPassword && verifyPassword($password, $hashedPassword)) {
+    if ($row && verifyPassword($password, $row['password'])) {
         // Password is correct, set session variables
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
         return ['status' => true, 'message' => 'Login successful!'];
     } else {
         // Record the failed login attempt
-        recordLoginAttempt($username);
+        recordLoginAttempt(null, $username);
         return ['status' => false, 'message' => 'Invalid username or password.'];
     }
 }
