@@ -1,6 +1,6 @@
 <?php
 // Determine the base URL based on the environment
-define('BASE_URL', ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1") ? "/WDV341/" : "/");
+define('BASE_URL', ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1" || $_SERVER['HTTP_HOST'] == "nocturnalmarketing.local") ? "/WDV341/" : "/");
 // Define the root directory for the project
 define('ROOT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/WDV341/');
 
@@ -23,17 +23,20 @@ $assignedCurrency = "8675309"; // Jenny's Bank Account Balance
 $stringInfo = manipulateString("Hello DMACC"); // Test String
 
 // Function to format timestamp into mm/dd/yyyy
-function formatDate_mm_dd_yyyy($timestamp) {
+function formatDate_mm_dd_yyyy($timestamp)
+{
     return date("m/d/Y", $timestamp);
 }
 
 // Function to format timestamp into dd/mm/yyyy for international dates
-function formatDate_dd_mm_yyyy($timestamp) {
+function formatDate_dd_mm_yyyy($timestamp)
+{
     return date("d/m/Y", $timestamp);
 }
 
 // Function to manipulate string $stringInfo
-function manipulateString($inputString) {
+function manipulateString($inputString)
+{
     $length = strlen($inputString);
     $trimmedString = trim($inputString);
     $lowercaseString = strtolower($trimmedString);
@@ -48,43 +51,51 @@ function manipulateString($inputString) {
 }
 
 // Function to format number as phone number
-function formatPhoneNumber($number) {
+function formatPhoneNumber($number)
+{
     return preg_replace("/^(\d{3})(\d{3})(\d{4})$/", "$1-$2-$3", $number);
 }
 
 // Function to format number as US currency
-function formatCurrency($number) {
+function formatCurrency($number)
+{
     return '$' . number_format($number, 2);
 }
 
 // Function to sanitize output for XSS prevention
-function sanitizeOutput($data) {
+function sanitizeOutput($data)
+{
     return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
 }
 // Function to sanitize input for XSS prevention
-function sanitizeInput($data) {
+function sanitizeInput($data)
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
 }
 // Function to hash password
-function hashPassword($password) {
+function hashPassword($password)
+{
     return password_hash($password, PASSWORD_DEFAULT);
 }
 // Function to verify password
-function verifyPassword($password, $hashedPassword) {
+function verifyPassword($password, $hashedPassword)
+{
     return password_verify($password, $hashedPassword);
 }
 // Function to generate token
-function generateToken() {
+function generateToken()
+{
     if (!isset($_SESSION['token'])) {
         $_SESSION['token'] = bin2hex(random_bytes(32));
     }
     return $_SESSION['token'];
 }
 // Function to validate token
-function validateToken($token) {
+function validateToken($token)
+{
     if (isset($_SESSION['token']) && $token === $_SESSION['token']) {
         unset($_SESSION['token']);
         return true;
@@ -92,7 +103,8 @@ function validateToken($token) {
     return false;
 }
 // Function to check if user is logged in
-function checkLoginAttempts($user_id) {
+function checkLoginAttempts($user_id)
+{
     global $pdo;
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM login_attempts WHERE user_id = ? AND timestamp > DATE_SUB(NOW(), INTERVAL 15 MINUTE)");
     $stmt->execute([$user_id]);
@@ -100,7 +112,8 @@ function checkLoginAttempts($user_id) {
     return $attempts < 5; // Allow up to 5 attempts in 15 minutes
 }
 // Function to record login attempt
-function recordLoginAttempt($userId = null, $username = null) {
+function recordLoginAttempt($userId = null, $username = null)
+{
     global $pdo;
     try {
         if ($userId) {
@@ -118,11 +131,12 @@ function recordLoginAttempt($userId = null, $username = null) {
     }
 }
 // Function to start secure session
-function secureSessionStart() {
+function secureSessionStart()
+{
     $session_name = 'secure_session';
     $secure = false; // set to true if using HTTPS
     $httponly = true; // makes session cookie 'http-only'
-    
+
     ini_set('session.use_only_cookies', 1);
     $cookieParams = session_get_cookie_params();
     session_set_cookie_params($cookieParams["lifetime"], $cookieParams["path"], $cookieParams["domain"], $secure, $httponly);
@@ -132,28 +146,33 @@ function secureSessionStart() {
 }
 
 // Function to check logged in
-function isLoggedIn() {
+function isLoggedIn()
+{
     return isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
 }
 //Function to get logged in user for nav
-function getLoggedInUser() {
+function getLoggedInUser()
+{
     if (isLoggedIn()) {
         return $_SESSION['username'];
     }
     return null;
 }
 // Function to log out
-function logout() {
+function logout()
+{
     session_unset();
     session_destroy();
     header("Location: index.php");
     exit;
 }
 // Function to Redirect to Index -- Only allows excluded files
-function checkAuthorization() {
+function checkAuthorization()
+{
     $currentFile = $_SERVER['PHP_SELF'];
     $excludedFiles = [
-        BASE_URL . 'index.php', // root index.php
+        BASE_URL . 'index.php',
+        // root index.php
         BASE_URL . 'core/registration/userRegister.php',
         BASE_URL . 'core/registration/userLogin.php'
     ];
@@ -165,7 +184,8 @@ function checkAuthorization() {
 }
 
 // Social Media Links
-function getSocialMediaProfiles() {
+function getSocialMediaProfiles()
+{
     return array(
         'Facebook' => 'https://www.facebook.com/rednaxelanoctis/',
         'Instagram' => 'https://www.instagram.com/nocturnalxmarketing/',
