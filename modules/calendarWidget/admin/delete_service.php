@@ -7,7 +7,6 @@ $serviceDeleted = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     global $pdo;
-
     // Set the service_id in bookings to the ID of the placeholder service
     $placeholderServiceId = -1;
     $stmt = $pdo->prepare("UPDATE bookings SET service_id = :placeholder_id WHERE service_id = :service_id");
@@ -21,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Redirect to manage_services.php after updating the service, message script located in manage_services.php
     header("Location: manage_services.php?message=Service deleted successfully!");
-exit;
+    exit;
 
 }
 ?>
@@ -37,14 +36,15 @@ exit;
     <div class="content">
 
 
-            <?php if (!$serviceDeleted): ?>
-            <form action="delete_service.php?id=<?= $serviceId ?>" method="post" onsubmit="this.querySelector('input[type=submit]').disabled = true;">
+        <?php if (!$serviceDeleted): ?>
+            <form action="delete_service.php?id=<?= $serviceId ?>" method="post"
+                onsubmit="this.querySelector('input[type=submit]').disabled = true;">
                 <p>Are you sure you want to delete this service?</p>
                 <input type="submit" value="Delete Service">
             </form>
-            <?php else: ?>
+        <?php else: ?>
             <p>Service deleted successfully!</p>
-            <?php endif; ?>
+        <?php endif; ?>
     </div>
 </div>
 

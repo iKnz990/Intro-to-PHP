@@ -4,3 +4,16 @@
     Deny from all
 </Files>
 
+# Disable Directory Listing
+Options -Indexes
+
+# Redirect HTTP to HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Security Headers
+Header set Content-Security-Policy "default-src 'self';"
+Header always append X-Frame-Options SAMEORIGIN
+Header set X-Content-Type-Options nosniff
+Header set X-XSS-Protection "1; mode=block"
