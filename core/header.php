@@ -36,6 +36,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'logout') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <link href="<?= BASE_URL ?>assets/css/style.css" rel="stylesheet">
+    <script src="<?= BASE_URL ?>assets/js/script.js"></script>
 </head>
 
 <nav class="navigation">

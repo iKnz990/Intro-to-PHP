@@ -301,7 +301,13 @@
   tr:hover {
     background-color: #f5f5f5;
   }
-
+  /*Row Highlight for SQL - Within 3 days of date*/
+  .highlight-row {
+    background-color: lightgreen !important;
+  }
+  .highlight-past {
+    background-color: lightcoral !important;
+  }
   /* Video Player */
   .video-container {
     width: 100%;
