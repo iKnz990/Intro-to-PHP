@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $bookings = getAllBookings($sort_order);
 
 ?>
-<script>viewBookingsSort();</script>
 <div class="admin-container">
     <aside class="admin-nav">
         <h3>Navigation</h3>

@@ -28,7 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <select class="form-select" name="service_id" id="service">
                 <?php foreach ($services as $service): ?>
                     <?php if ($service['service_id'] != -1): // Skip the placeholder service ?>
-                    <option value="<?= $service['service_id'] ?>"><?= $service['service_name'] ?> (<?= $service['service_duration'] ?> mins)</option>
+                        <option value="<?= $service['service_id'] ?>">
+                            <?= $service['service_name'] ?> (
+                            <?= $service['service_duration'] ?> mins)
+                        </option>
                     <?php endif; ?>
                 <?php endforeach; ?>
             </select>
@@ -62,5 +65,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 <?php
-include ROOT_DIR . 'core/footer.php';
+include '../../core/footer.php';
 ?>

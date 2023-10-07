@@ -4,8 +4,8 @@ include 'core/functions.php';
 $services = getAllServices();
 ?>
 <div class="content">
-<h2>Use the Drop Down</h2>
+    <h2>Use the Drop Down</h2>
 </div>
 <?php
-include ROOT_DIR . 'core/footer.php';
+include '../../core/footer.php';
 ?>
