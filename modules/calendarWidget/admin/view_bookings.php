@@ -24,6 +24,7 @@ $bookings = getAllBookings($sort_order);
         <h2>View Bookings</h2>
         <form id="sortForm" method="post" action="">
             <select name="sort_order" id="sort_order">
+                <option value="select">Sort by:</option>
                 <option value="asc">Ascending</option>
                 <option value="desc">Descending</option>
                 <option value="past">Past Appointments</option>
