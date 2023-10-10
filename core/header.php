@@ -61,7 +61,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'logout') {
                 <h3>Calendar</h3>
             </a>
             <div class="dropdown-content">
-                <a href="<?= BASE_URL ?>modules/calendarWidget/book_service.php">Book a Date</a>
+                <a href="<?= BASE_URL ?>modules/calendarWidget/book_appointment.php">Book a Date</a>
                 <a href="<?= BASE_URL ?>modules/calendarWidget/admin/">Admin Panel</a>
             </div>
         </div>

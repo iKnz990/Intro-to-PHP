@@ -13,16 +13,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (checkAvailability($serviceId, $bookingDate, $bookingTime)) {
         bookService($serviceId, $userName, $userEmail, $bookingDate, $bookingTime);
-        echo "Service booked successfully!";
+        echo "Appointment booked successfully!";
     } else {
         echo "The selected slot is already booked. Please choose a different time.";
     }
 }
+//This is the code for the book_appointment.php page. It is the page that the user will see when they click on the book appointment button. It will display a form that will allow the user to book an appointment. The form will have a drop down menu that will allow the user to select a service. The form will also have a text box for the user to enter their name, a text box for the user to enter their email, a date picker for the user to select a date, and a time picker for the user to select a time. The form will also have a submit button that will allow the user to submit the form. The form will be submitted to the book_appointment.php page. The book_appointment.php page will check to see if the form has been submitted. If the form has been submitted, the book_appointment.php page will check to see if the selected time slot is available. If the selected time slot is available, the book_appointment.php page will book the appointment and display a success message. If the selected time slot is not available, the book_appointment.php page will display an error message.
 ?>
-<h2>Book a Service</h2>
+
+<h2>Book an Appointment</h2>
 
 <div class="form-container">
-    <form action="book_service.php" method="post">
+    <form action="book_appointment.php" method="post">
         <div class="form-group">
             <label class="form-label" for="service">Choose a service:</label>
             <select class="form-select" name="service_id" id="service">

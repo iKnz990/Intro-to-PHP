@@ -5,11 +5,14 @@ include '../core/functions.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sort_order = $_POST['sort_order'];
 } else {
-    $sort_order = 'asc'; // Default sort order
+    $sort_order = 'approaching'; // Default sort order
 }
 $bookings = getAllBookings($sort_order);
 
+
 ?>
+
+
 <div class="admin-container">
     <aside class="admin-nav">
         <h3>Navigation</h3>
@@ -23,11 +26,10 @@ $bookings = getAllBookings($sort_order);
         <h2>View Bookings</h2>
         <form id="sortForm" method="post" action="">
             <select name="sort_order" id="sort_order">
-                <option value="select">Sort by:</option>
+                <option value="approaching">Approaching Appointments</option>
+                <option value="past">Past Appointments</option>
                 <option value="asc">Ascending</option>
                 <option value="desc">Descending</option>
-                <option value="past">Past Appointments</option>
-                <option value="approaching">Approaching Appointments</option>
             </select>
         </form>
 
@@ -53,7 +55,6 @@ $bookings = getAllBookings($sort_order);
                     $bookingDate->setTime(0, 0, 0);
 
                     $interval = $currentDate->diff($bookingDate)->days;
-
 
                     $highlight = '';
                     if ($sort_order === 'past' && $bookingDate < $currentDate) {

@@ -32,13 +32,19 @@ function getAllBookings($sort_order = 'asc')
 {
     global $pdo;
 
-    $order_by = "booking_date ASC, booking_time";
+    $query = "SELECT bookings.*, services.service_name, services.service_duration FROM bookings JOIN services ON bookings.service_id = services.service_id";
+
     if ($sort_order === 'desc') {
-        $order_by = "booking_date DESC, booking_time";
+        $query .= " ORDER BY booking_date DESC, booking_time";
+    } elseif ($sort_order === 'past') {
+        $query .= " WHERE booking_date < CURDATE() ORDER BY booking_date, booking_time";
+    } elseif ($sort_order === 'approaching') {
+        $query .= " WHERE booking_date >= CURDATE() AND booking_date <= DATE_ADD(CURDATE(), INTERVAL 3 DAY) ORDER BY booking_date, booking_time";
+    } else {
+        $query .= " ORDER BY booking_date ASC, booking_time";
     }
 
-    $stmt = $pdo->prepare("SELECT bookings.*, services.service_name, services.service_duration FROM bookings JOIN services ON bookings.service_id = services.service_id ORDER BY $order_by");
-
+    $stmt = $pdo->prepare($query);
     $stmt->execute();
     return $stmt->fetchAll();
 }
