@@ -39,7 +39,7 @@ The `WDV341` repository contains a collection of PHP projects and assignments. I
    - **Description**: A module for managing calendar-related tasks.
    - **TODOs**:
      - Implement Booking Delete/Edit functionality.
-     - Implement Sorting for Bookings and Services.
+     - Implement Sorting for ~~Bookings~~ and Services.
      - Provide options to view bookings and services for specific days, weeks, or months.
      - Add navigation controls to easily switch between different dates or time periods in the calendar.
      - Enable searching by keywords, dates, or other relevant criteria.
