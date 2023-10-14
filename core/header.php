@@ -56,6 +56,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'logout') {
         <a href="<?= BASE_URL ?>modules/form/">
             <h3>5-1</h3>
         </a>
+        <a href="<?= BASE_URL ?>modules/paypal/">
+            <h3>Paypal</h3>
+        </a>
         <div class="dropdown">
             <a href="<?= BASE_URL ?>modules/calendarWidget/">
                 <h3>Calendar</h3>
