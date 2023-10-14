@@ -23,6 +23,7 @@
     color: #727586;
     margin: 0px;
   }
+
   a {
     cursor: pointer;
     color: #bfadf2;
@@ -157,6 +158,17 @@
   .dropdown:hover{
     cursor: pointer;
     color: #673DE6;
+    text-decoration: underline;
+  }
+  .dropdown a p {
+    color: #000;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+  }
+  .dropdown a p:hover {
+    color: #d6c7ff;
     text-decoration: underline;
   }
   .dropdown-content {

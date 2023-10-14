@@ -7,10 +7,13 @@
 # Disable Directory Listing
 Options -Indexes
 
-# Redirect HTTP to HTTPS
+# Redirect HTTPS to HTTP for Development Environment Only
 RewriteEngine On
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{HTTP_HOST} ^dev\.example\.com$ [OR]
+RewriteCond %{REMOTE_ADDR} ^192\.168\.1\.100$
+RewriteCond %{HTTPS} on
+RewriteRule ^(.*)$ http://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
 
 # Security Headers
 Header always append X-Frame-Options SAMEORIGIN
