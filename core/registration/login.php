@@ -1,7 +1,6 @@
 <?php
 include '../config.php';
 
-
 // Function to authenticate user
 function authenticateUser($username, $password)
 {
@@ -16,7 +15,8 @@ function authenticateUser($username, $password)
     $stmt->execute([$username]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($row && verifyPassword($password, $row['password'])) {
+    // Verify the hashed password
+    if ($row && password_verify($password, $row['password'])) {
         $_SESSION['role'] = $row['role'];
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
@@ -41,5 +41,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         $errorMessage = $result['message'];
     }
 }
-
 ?>
