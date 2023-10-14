@@ -23,6 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
 
 }
+
+checkUserRole('admin');
 ?>
 <div class="admin-container">
     <aside class="admin-nav">

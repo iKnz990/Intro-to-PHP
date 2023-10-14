@@ -3,7 +3,8 @@ include '../config.php';
 
 
 // Function to authenticate user
-function authenticateUser($username, $password) {
+function authenticateUser($username, $password)
+{
     global $pdo;
 
     // Check for excessive login attempts
@@ -11,12 +12,12 @@ function authenticateUser($username, $password) {
         return ['status' => false, 'message' => 'Too many login attempts. Please wait 15 minutes and try again.'];
     }
 
-    $stmt = $pdo->prepare("SELECT user_id, password FROM users WHERE username = ?");
+    $stmt = $pdo->prepare("SELECT user_id, password, role FROM users WHERE username = ?");
     $stmt->execute([$username]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($row && verifyPassword($password, $row['password'])) {
-        // Password is correct, set session variables
+        $_SESSION['role'] = $row['role'];
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
         return ['status' => true, 'message' => 'Login successful!'];

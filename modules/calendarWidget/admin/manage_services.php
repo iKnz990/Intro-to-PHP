@@ -3,6 +3,7 @@
 include '../../../core/header.php';
 include '../core/functions.php';
 $services = getAllServices();
+checkUserRole('admin');
 ?>
 <div class="admin-container">
     <aside class="admin-nav">

@@ -194,6 +194,14 @@ function getSocialMediaProfiles()
         'LinkedIn' => 'https://www.linkedin.com/in/alexander-kelly-4a801b245/'
     );
 }
+// Check User Role
+function checkUserRole($requiredRole)
+{
+    if ($_SESSION['role'] !== $requiredRole) {
+        header("Location: " . BASE_URL . "index.php?message=You do not have permission - Contact the Administrator.");
+        exit;
+    }
+}
 
 
 // *****End of the Line / Fill***** \\

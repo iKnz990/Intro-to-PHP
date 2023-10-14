@@ -16,7 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Redirect to manage_services.php after updating the service, message script located in manage_services.php
     header("Location: manage_services.php?message=Service updated successfully!");
-    exit;}
+    exit;
+}
+checkUserRole('admin');
 
 ?>
 <div class="admin-container">
@@ -30,27 +32,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </aside>
     <div class="content">
 
-            <div class="form-container">
-                <h3 class="form-title">Edit Service</h3>
-                <form action="edit_service.php?id=<?= $serviceId ?>" method="post">
-                    <div class="form-group">
-                        <label for="serviceName" class="form-label">Service Name:</label>
-                        <input type="text" id="serviceName" name="service_name" value="<?= $service['service_name'] ?>" class="form-input" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="duration" class="form-label">Duration (in mins):</label>
-                        <input type="number" id="duration" name="service_duration" value="<?= $service['service_duration'] ?>" class="form-input" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="description" class="form-label">Description:</label>
-                        <textarea id="description" name="description" class="form-textarea"><?= $service['description'] ?></textarea>
-                    </div>
-                    
-                    <input type="submit" value="Update Service" class="form-button">
-                </form>
-            </div>
+        <div class="form-container">
+            <h3 class="form-title">Edit Service</h3>
+            <form action="edit_service.php?id=<?= $serviceId ?>" method="post">
+                <div class="form-group">
+                    <label for="serviceName" class="form-label">Service Name:</label>
+                    <input type="text" id="serviceName" name="service_name" value="<?= $service['service_name'] ?>"
+                        class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="duration" class="form-label">Duration (in mins):</label>
+                    <input type="number" id="duration" name="service_duration"
+                        value="<?= $service['service_duration'] ?>" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="form-label">Description:</label>
+                    <textarea id="description" name="description"
+                        class="form-textarea"><?= $service['description'] ?></textarea>
+                </div>
+
+                <input type="submit" value="Update Service" class="form-button">
+            </form>
+        </div>
     </div>
 </div>
 <?php

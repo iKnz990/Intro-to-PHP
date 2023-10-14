@@ -2,6 +2,9 @@
 
 include '../../../core/header.php';
 include '../core/functions.php';
+
+checkUserRole('admin');
+
 ?>
 
 <div class="admin-container">

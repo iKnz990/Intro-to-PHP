@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 $bookings = getAllBookings($sort_order);
 
-
+checkUserRole('admin');
 ?>
 
 

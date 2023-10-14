@@ -1,7 +1,8 @@
 <?php
 
 // Function to register a new user
-function registerUser($data) {
+function registerUser($data)
+{
     global $pdo;
 
     // Check if username or email already exists
@@ -16,9 +17,10 @@ function registerUser($data) {
     // Hash the password
     $data['password'] = hashPassword($data['password']);
 
-    // Insert the new user into the database
-    $stmt = $pdo->prepare("INSERT INTO users (username, password, email) VALUES (?, ?, ?)");
-    $stmt->execute([$data['username'], $data['password'], $data['email']]);
+    // Insert the new user into the database with a role
+    $stmt = $pdo->prepare("INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)");
+    $stmt->execute([$data['username'], $data['password'], $data['email'], 'user']);
+
 
     return ['status' => true, 'message' => 'Registration successful!'];
 }
@@ -27,7 +29,8 @@ function registerUser($data) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
     $data = [
         'username' => sanitizeInput($_POST['username']),
-        'password' => $_POST['password'], // Don't sanitize password input to avoid altering characters
+        'password' => $_POST['password'],
+        // Don't sanitize password input to avoid altering characters
         'email' => sanitizeInput($_POST['email'])
     ];
 
@@ -39,4 +42,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
         $errorMessage = $result['message'];
     }
 }
+
 ?>
