@@ -436,7 +436,25 @@
       color: #673DE6;
       text-decoration: underline;
   }
-
+  /*Paypal content and item*/
+  .paypal-content-container {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+.paypal-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+.paypal-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+}
   /* Responsive */
   @media screen and (max-width: 580px) and (min-width: 0px) {
   h1, p {
