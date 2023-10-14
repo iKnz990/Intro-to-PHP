@@ -88,7 +88,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'logout') {
                 </a>
             </div>
         </div>
-
+        <a href="<?= BASE_URL ?>modules/dataVisualization">
+            <h3>Wolfram</h3>
+        </a>
         <div class="user-info">
             <h3>Hello,
                 <?php echo getLoggedInUser(); ?>
