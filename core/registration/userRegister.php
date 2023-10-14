@@ -1,13 +1,14 @@
-<?php 
+<?php
 include '../header.php';
-include 'register.php'; 
+include 'register.php';
 
 ?>
 <div class="content-container">
-<div class="form-container">
-    
+    <div class="form-container">
+
         <h2 class="form-title">Register</h2>
-        <?php if (isset($errorMessage)) echo "<p class='error'>$errorMessage</p>"; ?>
+        <?php if (isset($errorMessage))
+            echo "<p class='error'>$errorMessage</p>"; ?>
         <form action="" method="post">
             <div class="form-group">
                 <label class="form-label" for="username">Username:</label>
@@ -21,13 +22,13 @@ include 'register.php';
                 <label class="form-label" for="password">Password:</label>
                 <input class="form-input" type="password" name="password" required>
             </div>
-            
+
             <input class="form-button" type="submit" name="register" value="Register">
         </form>
     </div>
 </div>
-<?php 
-include ROOT_DIR . 'core/footer.php';
+<?php
+include '../footer.php';
 
 
 ?>
