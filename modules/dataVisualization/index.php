@@ -1,8 +1,8 @@
 <?php
 include '../../core/header.php';
 checkUserRole('admin');
-
 ?>
+
 <div class="content-container">
     <div class="content">
 
@@ -11,47 +11,60 @@ checkUserRole('admin');
 
             <script>
                 var queryHistory = [];
+                var displayMode = "text";  // Default display mode
+                var textResultsHtml = "";  // Store text results
+                var imgResultsHtml = "";  // Store image results
 
                 $(document).ready(function () {
                     $("#query-button").click(function () {
                         sendQuery();
                     });
-                    $("#result-img").hide();  // Hide the image by default
 
+                    $("#toggle-button").click(function () {
+                        toggleDisplayMode();
+                    });
                 });
 
                 function handleResponse(xml) {
-                    var resultsHtml = "";
+                    textResultsHtml = "";
+                    imgResultsHtml = "";
+                    var hasResults = false;  // Flag to check if any results were returned
 
                     $(xml).find('pod').each(function () {
+                        hasResults = true;  // Results were found
                         var title = $(this).attr('title');
                         var resultText = $(this).find('plaintext').text();
                         var resultImgSrc = $(this).find('img').attr('src');
 
-                        resultsHtml += "<h3>" + title + "</h3>";
+                        textResultsHtml += "<h3>" + title + "</h3>";
+                        imgResultsHtml += "<h3>" + title + "</h3>";
 
                         if (resultText) {
-                            resultsHtml += "<p>" + resultText + "</p>";
+                            textResultsHtml += "<p>" + resultText + "</p>";
                         } else {
-                            resultsHtml += "<p>No text result for this pod.</p>";
+                            textResultsHtml += "";
                         }
 
                         if (resultImgSrc) {
-                            resultsHtml += "<img src='" + resultImgSrc + "' alt='" + title + " image' />";
+                            imgResultsHtml += "<img src='" + resultImgSrc + "' alt='" + title + " image' />";
                         }
                     });
 
-                    if (resultsHtml) {
-                        $("#result-text").html(resultsHtml);
-                    } else {
-                        $("#result-text").text("No result found.");
+                    if (!hasResults) {
+                        textResultsHtml = "<p>No results found.</p>";
+                        imgResultsHtml = "<p>No results found.</p>";
                     }
+
+                    updateDisplay();
                 }
+
 
                 function sendQuery() {
                     var input = $("#query-input").val();
-                    queryHistory.push(input);
-                    updateQueryHistory();
+                    if (input) {
+                        queryHistory.push(input);
+                        updateQueryHistory();
+                    }
 
                     var url = "wolfram_proxy.php?input=" + encodeURIComponent(input);
 
@@ -74,21 +87,38 @@ checkUserRole('admin');
                     }).join('');
                     $("#query-history").html(historyHtml);
                 }
+
+                function toggleDisplayMode() {
+                    displayMode = (displayMode === "text") ? "image" : "text";
+                    updateDisplay();
+                }
+
+                function updateDisplay() {
+                    if (displayMode === "text") {
+                        $("#result-container").html(textResultsHtml);
+                    } else {
+                        $("#result-container").html(imgResultsHtml);
+                    }
+                }
             </script>
         </head>
 
-        <h1>Wolfram API Example</h1>
-        <p>This page uses the Wolfram API to get the result of your query.</p>
-        <input type="text" id="query-input" placeholder="Enter your query here">
+        <h1>Wolfram</h1>
+        <p>This page uses the <a href="https://www.wolframalpha.com/">Wolfram API</a> to get the result of your query.
+        </p> <input type="text" id="query-input" placeholder="Enter your query here">
         <button id="query-button">Submit Query</button>
-        <div id="result-text"></div>
-        <img id="result-img" alt="Result image" />
+
+
         <h2>Query History</h2>
         <ul id="query-history"></ul>
+
+        <h3>Results</h3>
+        <button id="toggle-button">Display Text or Image</button>
+        <div id="result-container"></div>
+
     </div>
 </div>
 
 <?php
 include '../../core/footer.php';
-
 ?>
