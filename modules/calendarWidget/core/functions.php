@@ -4,26 +4,59 @@
 function getAllServices()
 {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM services");
+    $stmt = $pdo->prepare("SELECT service_id, service_name, service_duration, description, price FROM services");
     $stmt->execute();
     return $stmt->fetchAll();
 }
 
-// Function to book a service
-function bookService($service_id, $user_name, $user_email, $booking_date, $booking_time)
+// Function to book a service// Function to book a service
+function bookService($serviceIds, $userName, $userEmail, $bookingDate, $bookingTime, $price)
 {
     global $pdo;
-    $stmt = $pdo->prepare("INSERT INTO bookings (service_id, user_name, user_email, booking_date, booking_time) VALUES (?, ?, ?, ?, ?)");
-    $stmt->execute([$service_id, htmlspecialchars($user_name, ENT_QUOTES, 'UTF-8'), htmlspecialchars($user_email, ENT_QUOTES, 'UTF-8'), $booking_date, $booking_time]);
+    $stmt = $pdo->prepare("INSERT INTO bookings (user_name, user_email, booking_date, booking_time, price) VALUES (?, ?, ?, ?, ?)");
+    $stmt->execute([htmlspecialchars($userName, ENT_QUOTES, 'UTF-8'), htmlspecialchars($userEmail, ENT_QUOTES, 'UTF-8'), $bookingDate, $bookingTime, $price]);
+
+    $bookingId = $pdo->lastInsertId();
+
+    $stmt = $pdo->prepare("INSERT INTO booking_services (booking_id, service_id) VALUES (?, ?)");
+    foreach ($serviceIds as $serviceId) {
+        $stmt->execute([$bookingId, $serviceId]);
+    }
+
+    return $bookingId; // Return the last inserted ID
 }
 
-// Function to check availability
-function checkAvailability($service_id, $booking_date, $booking_time)
+
+// Function to get the price of a service by its ID
+function getServicePriceById($service_id)
 {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM bookings WHERE service_id = ? AND booking_date = ? AND booking_time = ?");
-    $stmt->execute([$service_id, $booking_date, $booking_time]);
-    return $stmt->rowCount() == 0; // return true if available, false otherwise
+    $stmt = $pdo->prepare("SELECT price FROM services WHERE service_id = ?");
+    $stmt->execute([$service_id]);
+    $result = $stmt->fetch();
+    return $result ? $result['price'] : 0;
+}
+
+
+// Function to check availability
+function checkAvailability($serviceIds, $booking_date, $booking_time)
+{
+    global $pdo;
+    $available = true;
+
+    foreach ($serviceIds as $serviceId) {
+        $stmt = $pdo->prepare("SELECT bookings.* FROM bookings 
+                                JOIN booking_services ON bookings.booking_id = booking_services.booking_id
+                                WHERE booking_services.service_id = ? AND bookings.booking_date = ? AND bookings.booking_time = ?");
+        $stmt->execute([$serviceId, $booking_date, $booking_time]);
+
+        if ($stmt->rowCount() > 0) {
+            $available = false;
+            break;
+        }
+    }
+
+    return $available;
 }
 
 
@@ -32,16 +65,21 @@ function getAllBookings($sort_order = 'asc')
 {
     global $pdo;
 
-    $query = "SELECT bookings.*, services.service_name, services.service_duration FROM bookings JOIN services ON bookings.service_id = services.service_id";
+    $query = "SELECT bookings.*, GROUP_CONCAT(services.service_name ORDER BY services.service_name ASC) as service_names,
+              GROUP_CONCAT(services.service_duration ORDER BY services.service_name ASC) as service_durations,
+              GROUP_CONCAT(services.service_id ORDER BY services.service_name ASC) as service_ids
+              FROM bookings 
+              JOIN booking_services ON bookings.booking_id = booking_services.booking_id 
+              JOIN services ON booking_services.service_id = services.service_id";
 
     if ($sort_order === 'desc') {
-        $query .= " ORDER BY booking_date DESC, booking_time";
+        $query .= " GROUP BY bookings.booking_id ORDER BY booking_date DESC, booking_time";
     } elseif ($sort_order === 'past') {
-        $query .= " WHERE booking_date < CURDATE() ORDER BY booking_date, booking_time";
+        $query .= " WHERE booking_date < CURDATE() GROUP BY bookings.booking_id ORDER BY booking_date, booking_time";
     } elseif ($sort_order === 'approaching') {
-        $query .= " WHERE booking_date >= CURDATE() AND booking_date <= DATE_ADD(CURDATE(), INTERVAL 3 DAY) ORDER BY booking_date, booking_time";
+        $query .= " WHERE booking_date >= CURDATE() AND booking_date <= DATE_ADD(CURDATE(), INTERVAL 3 DAY) GROUP BY bookings.booking_id ORDER BY booking_date, booking_time";
     } else {
-        $query .= " ORDER BY booking_date ASC, booking_time";
+        $query .= " GROUP BY bookings.booking_id ORDER BY booking_date ASC, booking_time";
     }
 
     $stmt = $pdo->prepare($query);

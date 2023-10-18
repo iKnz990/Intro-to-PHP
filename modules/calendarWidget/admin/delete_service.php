@@ -15,7 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Delete the service
     $stmt = $pdo->prepare("DELETE FROM services WHERE service_id = :service_id");
     $stmt->execute(['service_id' => $serviceId]);
-
+    // Delete from booking_services table before deleting the booking
+    $stmt = $pdo->prepare("DELETE FROM booking_services WHERE booking_id = ?");
+    $stmt->execute([$bookingId]);
     $serviceDeleted = true;
 
     // Redirect to manage_services.php after updating the service, message script located in manage_services.php

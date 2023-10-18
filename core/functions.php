@@ -22,10 +22,11 @@ $phoneNumber = "7192130553"; // My Phone Number
 $assignedCurrency = "8675309"; // Jenny's Bank Account Balance
 $stringInfo = manipulateString("Hello DMACC"); // Test String
 
-// Function to format timestamp into mm/dd/yyyy
+// Function to format timestamp string into mm/dd/yyyy
 function formatDate_mm_dd_yyyy($timestamp)
 {
-    return date("m/d/Y", $timestamp);
+    $unixTimestamp = strtotime($timestamp); // Convert to Unix timestamp
+    return date("m/d/Y", $unixTimestamp);
 }
 
 // Function to format timestamp into dd/mm/yyyy for international dates
@@ -60,6 +61,12 @@ function formatPhoneNumber($number)
 function formatCurrency($number)
 {
     return '$' . number_format($number, 2);
+}
+
+// Function to format time
+function formatTime($time)
+{
+    return date('h:i-A', strtotime($time));
 }
 
 // Function to sanitize output for XSS prevention

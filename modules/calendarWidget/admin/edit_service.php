@@ -9,10 +9,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $serviceName = $_POST['service_name'];
     $serviceDuration = $_POST['service_duration'];
     $description = $_POST['description'];
+    $price = $_POST['price'];
 
     global $pdo;
-    $stmt = $pdo->prepare("UPDATE services SET service_name = ?, service_duration = ?, description = ? WHERE service_id = ?");
-    $stmt->execute([$serviceName, $serviceDuration, $description, $serviceId]);
+    $stmt = $pdo->prepare("UPDATE services SET service_name = ?, service_duration = ?, description = ?, price = ? WHERE service_id = ?");
+    $stmt->execute([$serviceName, $serviceDuration, $description, $price, $serviceId]);
+
 
     // Redirect to manage_services.php after updating the service, message script located in manage_services.php
     header("Location: manage_services.php?message=Service updated successfully!");
@@ -40,7 +42,11 @@ checkUserRole('admin');
                     <input type="text" id="serviceName" name="service_name" value="<?= $service['service_name'] ?>"
                         class="form-input" required>
                 </div>
-
+                <div class="form-group">
+                    <label for="price" class="form-label">Price:</label>
+                    <input type="number" id="price" name="price" class="form-input" value="<?= $service['price'] ?>"
+                        required>
+                </div>
                 <div class="form-group">
                     <label for="duration" class="form-label">Duration (in mins):</label>
                     <input type="number" id="duration" name="service_duration"

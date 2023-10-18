@@ -43,13 +43,25 @@ checkUserRole('admin');
                     <th>Time</th>
                     <th>Duration (mins)</th>
                     <th>End Time</th>
+                    <th>Price</th>
+
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($bookings as $booking): ?>
                     <?php
+                    // Fetch services for each booking
+                    $stmt = $pdo->prepare("SELECT service_id FROM booking_services WHERE booking_id = ?");
+                    $stmt->execute([$booking['booking_id']]);
+                    $services = $stmt->fetchAll();
+
                     $currentDate = new DateTime('now', new DateTimeZone('UTC'));
                     $currentDate->setTime(0, 0, 0);
+                    // Services
+                    $serviceNames = $booking['service_names'] ? explode(',', $booking['service_names']) : [];
+                    $serviceDurations = $booking['service_durations'] ? explode(',', $booking['service_durations']) : [];
+                    $serviceIds = $booking['service_ids'] ? explode(',', $booking['service_ids']) : [];
+
 
                     $bookingDate = new DateTime($booking['booking_date'], new DateTimeZone('UTC'));
                     $bookingDate->setTime(0, 0, 0);
@@ -66,7 +78,7 @@ checkUserRole('admin');
                     ?>
                     <tr class="<?= $highlight ?>">
                         <td>
-                            <?= ($booking['service_id'] == -1) ? "Service Deleted" : $booking['service_name'] ?>
+                            <?= implode(', ', $serviceNames) ?>
                         </td>
                         <td>
                             <?= $booking['user_name'] ?>
@@ -75,16 +87,20 @@ checkUserRole('admin');
                             <?= $booking['user_email'] ?>
                         </td>
                         <td>
-                            <?= $booking['booking_date'] ?>
+                            <?= formatDate_mm_dd_yyyy($booking['booking_date']) ?>
                         </td>
                         <td>
-                            <?= $booking['booking_time'] ?>
+                            <?= formatTime($booking['booking_time']) ?>
                         </td>
                         <td>
-                            <?= $booking['service_duration'] ?>
+                            <?= array_sum($serviceDurations) ?>
+                        </td>
+
+                        <td>
+                            <?= formatTime(date("H:i", strtotime($booking['booking_time'] . ' + ' . array_sum($serviceDurations) . ' minutes'))) ?>
                         </td>
                         <td>
-                            <?= date("H:i", strtotime($booking['booking_time'] . ' + ' . $booking['service_duration'] . ' minutes')) ?>
+                            <?= $booking['price'] ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

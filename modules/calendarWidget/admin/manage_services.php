@@ -23,7 +23,10 @@ checkUserRole('admin');
                     <label for="serviceName" class="form-label">Service Name:</label>
                     <input type="text" id="serviceName" name="service_name" class="form-input" required>
                 </div>
-
+                <div class="form-group">
+                    <label for="price" class="form-label">Price:</label>
+                    <input type="number" id="price" name="price" class="form-input" required>
+                </div>
                 <div class="form-group">
                     <label for="duration" class="form-label">Duration (in mins):</label>
                     <input type="number" id="duration" name="service_duration" class="form-input" required>
@@ -44,6 +47,7 @@ checkUserRole('admin');
                     <tr>
                         <th>Service Name</th>
                         <th>Duration (mins)</th>
+                        <th>Price</th>
                         <th>Description</th>
                         <th>Actions</th>
                     </tr>
@@ -67,6 +71,9 @@ checkUserRole('admin');
                                 </td>
                                 <td>
                                     <?= $service['service_duration'] ?>
+                                </td>
+                                <td>
+                                    <?= $service['price'] ?>
                                 </td>
                                 <td>
                                     <?= $service['description'] ?>
