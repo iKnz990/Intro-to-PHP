@@ -160,11 +160,22 @@ function isLoggedIn()
 //Function to get logged in user for nav
 function getLoggedInUser()
 {
+
     if (isLoggedIn()) {
         return $_SESSION['username'];
     }
     return null;
 }
+
+// Function to get logged in user's email
+function getLoggedInEmail()
+{
+    if (isLoggedIn()) {
+        return $_SESSION['email'];
+    }
+    return null;
+}
+
 // Function to log out
 function logout()
 {

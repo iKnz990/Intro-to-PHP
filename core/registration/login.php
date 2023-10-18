@@ -11,7 +11,7 @@ function authenticateUser($username, $password)
         return ['status' => false, 'message' => 'Too many login attempts. Please wait 15 minutes and try again.'];
     }
 
-    $stmt = $pdo->prepare("SELECT user_id, password, role FROM users WHERE username = ?");
+    $stmt = $pdo->prepare("SELECT user_id, password, role, email FROM users WHERE username = ?");
     $stmt->execute([$username]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -20,6 +20,7 @@ function authenticateUser($username, $password)
         $_SESSION['role'] = $row['role'];
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
+        $_SESSION['email'] = $row['email']; // Fetch email from the database and set it
         return ['status' => true, 'message' => 'Login successful!'];
     } else {
         // Record the failed login attempt
@@ -27,6 +28,7 @@ function authenticateUser($username, $password)
         return ['status' => false, 'message' => 'Invalid username or password.'];
     }
 }
+
 
 // If login form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {

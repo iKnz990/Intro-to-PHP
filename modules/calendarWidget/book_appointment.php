@@ -29,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
+
 ?>
 
 <h2>Book an Appointment</h2>
@@ -64,7 +65,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
                         ?>
                         <input type="checkbox" name="service_id[]" value="<?= $service['service_id'] ?>"
-                            data-price="<?= $service['price'] ?>">
+                            data-price="<?= $service['price'] ?>" data-duration="<?= $service['service_duration'] ?>">
+
                         <?= $formattedServiceInfo ?>
                     <?php endif; ?>
                 <?php endforeach; ?>
@@ -73,13 +75,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="form-group">
             <label class="form-label" for="username">Your Name:</label>
-            <input class="form-input" type="text" id="username" name="user_name" required>
+            <input class="form-input" type="text" id="username" name="user_name"
+                value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?>" required>
         </div>
 
         <div class="form-group">
             <label class="form-label" for="email">Your Email:</label>
-            <input class="form-input" type="email" id="email" name="user_email" required>
+            <input class="form-input" type="email" id="email" name="user_email"
+                value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>" required>
+            <!-- Sets Email based on the session -->
         </div>
+
+
 
         <div class="form-group">
             <label class="form-label" for="date">Date:</label>
@@ -88,14 +95,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="form-group">
             <label class="form-label" for="time">Time:</label>
-            <input class="form-input" type="time" id="time" name="booking_time" required>
+            <select class="form-input" id="time" name="booking_time" required>
+                <!--  This dropdown populates dynamically with JavaScript -->
+            </select>
         </div>
+
         <div class="form-group">
             <label class="form-label">Total Price:</label>
             <span id="price">$0.00</span>
         </div>
-
-
+        <div class="form-group">
+            <label class="form-label">Total Time:</label>
+            <span id="totalTime">0 minutes</span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Ending Time:</label>
+            <span id="endTime">N/A</span>
+        </div>
         <div class="form-group">
             <input class="form-button" type="submit" value="Book Now">
         </div>
@@ -103,21 +119,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
 <script>
+
+    // Function to populate time slots in the dropdown
+    function populateTimeSlots() {
+        const timeSelect = document.getElementById('time');
+        for (let i = 9; i <= 21; i++) { // Assuming time slots from 9 AM to 9 PM
+            const option = document.createElement('option');
+            option.value = `${i}:00`;
+            option.text = `${i}:00`;
+            timeSelect.appendChild(option);
+        }
+    }
+
+    // Function to calculate total price, total time, and ending time
+    function calculateTotal() {
+        let total = 0;
+        let totalTime = 0;
+        checkboxes.forEach(box => {
+            if (box.checked) {
+                total += parseFloat(box.getAttribute('data-price'));
+                totalTime += parseInt(box.getAttribute('data-duration'));
+            }
+        });
+        document.getElementById('price').textContent = `$${total.toFixed(2)}`;
+        document.getElementById('totalTime').textContent = `${totalTime} minutes`;
+
+        // Calculate ending time based on selected time and total duration
+        const selectedTime = document.getElementById('time').value;
+        if (selectedTime) {
+            const [hour, minute] = selectedTime.split(':').map(Number);
+            const endTime = new Date(0, 0, 0, hour, minute + totalTime);
+            const endHour = endTime.getHours();
+            const endMinute = endTime.getMinutes();
+            document.getElementById('endTime').textContent = `${endHour}:${endMinute < 10 ? '0' : ''}${endMinute}`;
+        }
+    }
+
+    // Populate time slots when the page loads
+    document.addEventListener('DOMContentLoaded', populateTimeSlots);
+
     // Get all checkboxes
     const checkboxes = document.querySelectorAll('input[type="checkbox"][name="service_id[]"]');
 
-    // Calculate total price on service selection
+    // Attach event listeners
     checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function () {
-            let total = 0;
-            checkboxes.forEach(box => {
-                if (box.checked) {
-                    total += parseFloat(box.getAttribute('data-price'));
-                }
-            });
-            document.getElementById('price').textContent = `$${total.toFixed(2)}`;
-        });
+        checkbox.addEventListener('change', calculateTotal);
     });
+    document.getElementById('time').addEventListener('change', calculateTotal);
+
 </script>
 
 
