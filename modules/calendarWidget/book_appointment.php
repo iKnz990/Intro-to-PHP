@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userName = htmlspecialchars($_POST['user_name'], ENT_QUOTES, 'UTF-8');
     $userEmail = htmlspecialchars($_POST['user_email'], ENT_QUOTES, 'UTF-8');
     $bookingDate = $_POST['booking_date'];
-    $bookingTime = $_POST['booking_time'];
+    $bookingTime = formatTime($_POST['booking_time']);
 
     // Calculate total price
     $totalPrice = 0;
@@ -125,11 +125,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         const timeSelect = document.getElementById('time');
         for (let i = 9; i <= 21; i++) { // Assuming time slots from 9 AM to 9 PM
             const option = document.createElement('option');
-            option.value = `${i}:00`;
-            option.text = `${i}:00`;
+            option.value = `${i}:00`; // 24-hour format for the value
+            const ampm = i >= 12 ? 'PM' : 'AM';
+            const hour12 = i > 12 ? i - 12 : i;
+            option.text = `${hour12}:00 ${ampm}`; // 12-hour format with AM/PM for the text
             timeSelect.appendChild(option);
         }
     }
+
 
     // Function to calculate total price, total time, and ending time
     function calculateTotal() {
@@ -144,16 +147,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         document.getElementById('price').textContent = `$${total.toFixed(2)}`;
         document.getElementById('totalTime').textContent = `${totalTime} minutes`;
 
-        // Calculate ending time based on selected time and total duration
-        const selectedTime = document.getElementById('time').value;
-        if (selectedTime) {
-            const [hour, minute] = selectedTime.split(':').map(Number);
-            const endTime = new Date(0, 0, 0, hour, minute + totalTime);
-            const endHour = endTime.getHours();
-            const endMinute = endTime.getMinutes();
-            document.getElementById('endTime').textContent = `${endHour}:${endMinute < 10 ? '0' : ''}${endMinute}`;
-        }
+    // Calculate ending time based on selected time and total duration
+    const selectedTime = document.getElementById('time').value;
+    if (selectedTime) {
+        const [hour, minute] = selectedTime.split(':').map(Number);
+        const endTime = new Date(0, 0, 0, hour, minute + totalTime);
+        const endHour24 = endTime.getHours();
+        const endMinute = endTime.getMinutes();
+
+        // Convert to 12-hour format with AM/PM
+        const ampm = endHour24 >= 12 ? 'PM' : 'AM';
+        const endHour12 = endHour24 > 12 ? endHour24 - 12 : (endHour24 === 0 ? 12 : endHour24);
+
+        document.getElementById('endTime').textContent = `${endHour12}:${endMinute < 10 ? '0' : ''}${endMinute} ${ampm}`;
     }
+}
 
     // Populate time slots when the page loads
     document.addEventListener('DOMContentLoaded', populateTimeSlots);

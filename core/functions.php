@@ -66,8 +66,12 @@ function formatCurrency($number)
 // Function to format time
 function formatTime($time)
 {
-    return date('h:i-A', strtotime($time));
+    $timeArray = explode(":", $time);
+    $hour = $timeArray[0];
+    $minute = $timeArray[1];
+    return date('h:i A', mktime($hour, $minute));
 }
+
 
 // Function to sanitize output for XSS prevention
 function sanitizeOutput($data)
