@@ -230,7 +230,7 @@
   /* Calendar Admin Panel */
   .admin-container {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 20px auto;
     display: flex;
     flex-wrap: nowrap; /* Prevents wrapping of content */
@@ -248,8 +248,8 @@
     background-color: #000230;
     color: #bfadf2;
     border-right: 1px solid #673DE6;
-    height: 100%;
     overflow-y: auto;
+    z-index: 1;
   }
 
   .admin-nav h3 {
@@ -295,6 +295,7 @@
   table {
     width: 100%;
     border-collapse: collapse;
+    z-index: 0;
   }
 
   table, th, td {
@@ -322,10 +323,10 @@
   }
   .selected-cell {
     background-color: #f2f2f2;
-}
-.hidden {
-  display: none;
-}
+  }
+  .hidden {
+    display: none;
+  }
 
   /* Video Player */
   .video-container {

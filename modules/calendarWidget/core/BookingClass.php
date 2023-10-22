@@ -6,14 +6,18 @@ class Booking {
     private $bookingDate;
     private $bookingTime;
     private $price;
+    public $services;
 
-    public function __construct($bookingId, $userName, $userEmail, $bookingDate, $bookingTime, $price) {
+
+    public function __construct($bookingId, $userName, $userEmail, $bookingDate, $bookingTime, $price, $services = []) {
         $this->bookingId = $bookingId;
         $this->userName = $userName;
         $this->userEmail = $userEmail;
         $this->bookingDate = $bookingDate;
         $this->bookingTime = $bookingTime;
         $this->price = $price;
+        $this->services = $services;
+
     }
 
 
@@ -25,7 +29,8 @@ class Booking {
             'userEmail' => $this->userEmail,
             'bookingDate' => $this->bookingDate,
             'bookingTime' => $this->bookingTime,
-            'price' => $this->price
+            'price' => $this->price,
+            'services' => $this->services
         ]);
     }
 

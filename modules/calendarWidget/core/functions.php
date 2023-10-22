@@ -90,7 +90,13 @@ function getAllBookings($sort_order = 'asc')
 function updateBooking($bookingObj) {
     global $pdo;
 
-    if (!isset($bookingObj['bookingId'])) {
+    // Check if the required fields are set
+    if (!isset($bookingObj['bookingId']) || 
+        !isset($bookingObj['price']) || 
+        !isset($bookingObj['userName']) || 
+        !isset($bookingObj['userEmail']) || 
+        !isset($bookingObj['bookingDate']) || 
+        !isset($bookingObj['bookingTime'])) {
         return false;
     }
 
@@ -111,8 +117,19 @@ function updateBooking($bookingObj) {
     $stmt->bindParam(':bookingTime', $bookingObj['bookingTime'], PDO::PARAM_STR);
     $stmt->bindParam(':bookingId', $bookingObj['bookingId'], PDO::PARAM_INT);
 
-    return $stmt->execute();
+    // Delete old services for this booking
+    $stmt = $pdo->prepare("DELETE FROM booking_services WHERE booking_id = ?");
+    $stmt->execute([$bookingObj['bookingId']]);
+
+    // Insert new services for this booking
+    $stmt = $pdo->prepare("INSERT INTO booking_services (booking_id, service_id) VALUES (?, ?)");
+    foreach ($bookingObj['services'] as $serviceId) {
+        $stmt->execute([$bookingObj['bookingId'], $serviceId]);
+    }
+
+    return true;
 }
+
 
 
 ?>

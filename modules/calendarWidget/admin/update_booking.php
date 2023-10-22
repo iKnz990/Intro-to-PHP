@@ -7,6 +7,17 @@ include '../core/functions.php';
 $bookingJSON = file_get_contents('php://input');
 $bookingObj = json_decode($bookingJSON, true);
 
+// Check if the required fields are set in the received object
+if (!isset($bookingObj['bookingId']) || 
+    !isset($bookingObj['price']) || 
+    !isset($bookingObj['userName']) || 
+    !isset($bookingObj['userEmail']) || 
+    !isset($bookingObj['bookingDate']) || 
+    !isset($bookingObj['bookingTime'])) {
+    echo 'Incomplete data received';
+    exit;
+}
+
 // Update the database using the new data
 if (updateBooking($bookingObj)) {
     echo 'Booking updated successfully';

@@ -14,7 +14,14 @@ class Service {
     }
 
 
-
+    public function toJson() {
+        return json_encode([
+            'id' => $this->id,
+            'name' => $this->name,
+            'duration' => $this->duration,
+            'price' => $this->price
+        ]);
+    }
     /**
      * Get the value of name
      */

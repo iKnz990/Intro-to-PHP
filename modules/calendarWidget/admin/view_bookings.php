@@ -54,23 +54,24 @@ checkUserRole('admin');
             <tbody>
                 <?php foreach ($bookings as $booking): ?>
                     <?php
-                    // Create an instance of the Booking class
+                    // Fetch services for each booking -- before creating the Booking object [... the syntax of doom]
+                    $stmt = $pdo->prepare("SELECT service_id FROM booking_services WHERE booking_id = ?");
+                    $stmt->execute([$booking['booking_id']]);
+                    $serviceData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    $serviceIds = array_column($serviceData, 'service_id');
+
                     $bookingObj = new Booking(
                         $booking['booking_id'],
                         $booking['user_name'],
                         $booking['user_email'],
                         $booking['booking_date'],
                         $booking['booking_time'],
-                        $booking['price']
+                        $booking['price'],
+                        $serviceIds  // This is the array of service IDs
                     );
 
                     // Convert the Booking object to JSON (if needed)
                     $bookingJSON = $bookingObj->toJSON();
-
-                    // Fetch services for each booking
-                    $stmt = $pdo->prepare("SELECT service_id FROM booking_services WHERE booking_id = ?");
-                    $stmt->execute([$booking['booking_id']]);
-                    $services = $stmt->fetchAll();
 
                     $currentDate = new DateTime('now', new DateTimeZone('UTC'));
                     $currentDate->setTime(0, 0, 0);
@@ -94,7 +95,7 @@ checkUserRole('admin');
 
                     ?>
                         <tr class="<?= $highlight ?>" data-booking-json='<?= $bookingJSON ?>'>
-                        <td>
+                        <td data-field="serviceName">
                             <?= implode(', ', $serviceNames) ?>
                         </td>
                         <td data-field="userName">
@@ -124,8 +125,10 @@ checkUserRole('admin');
             </tbody>
         </table>
         <div id="editModal" class="hidden">
+        <div id="modalContent">
             <label for="newValue">New Value:</label>
             <input type="text" id="newValue">
+            </div>
             <button id="updateBtn">Update</button>
         </div>
     </div>
@@ -134,61 +137,120 @@ checkUserRole('admin');
 
 
 <script>
-    // Function to show the modal and handle the update
-    function showModal(bookingObj, field) {
-        const modal = document.getElementById('editModal');
-        const input = document.getElementById('newValue');
-        const updateBtn = document.getElementById('updateBtn');
-        const availableServices = <?= $servicesJson ?>;
 
-        // Show the modal
-        modal.classList.remove('hidden');
+    
+// Function to show the modal and handle the update
+function showModal(bookingObj, field, cell) {
+    const modal = document.getElementById('editModal');
+    const modalContent = document.getElementById('modalContent');
+    const updateBtn = document.getElementById('updateBtn');
+    const availableServices = <?= $servicesJson ?>;
+    const input = document.createElement('input'); // Define the input element
 
-        // Set the input value to the current field value
+    //console.log("Debug: ", modal, modalContent, updateBtn);  // Debugging line
+
+
+    // Clear existing content and Show the modal
+    modalContent.innerHTML = '';
+    modal.classList.remove('hidden');
+    console.log("Is modal hidden?", modal.classList.contains('hidden'));
+
+    if (field === "serviceName") {
+        availableServices.forEach(service => {
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.value = service.service_id;
+            checkbox.id = "service_" + service.service_id;
+
+            const label = document.createElement("label");
+            label.htmlFor = "service_" + service.service_id;
+            label.appendChild(document.createTextNode(service.service_name));
+
+            if (bookingObj.services && bookingObj.services.includes(service.service_id)) {
+                checkbox.checked = true;
+            }
+
+            modalContent.appendChild(checkbox);
+            modalContent.appendChild(label);
+            modalContent.appendChild(document.createElement("br"));
+        });
+    } else {
+        // For other fields, use an input box
+        const input = document.createElement('input');
         input.value = bookingObj[field];
-
-        // Handle the update button click
-        updateBtn.onclick = function() {
-            // Update the booking object
-            bookingObj[field] = input.value;
-
-            // Convert the object back to JSON
-            const updatedBookingJSON = JSON.stringify(bookingObj);
-
-            // Send the updated JSON to the server using AJAX
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'update_booking.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    // Hide the modal
-                    modal.classList.add('hidden');
-                }
-            };
-            xhr.send(updatedBookingJSON);
-        };
+        modalContent.appendChild(input);
     }
+
+    updateBtn.onclick = function() {
+    if (field === "serviceName") {
+        const selectedServices = [];
+        availableServices.forEach(service => {
+            const checkbox = document.getElementById("service_" + service.service_id);
+            if (checkbox.checked) {
+                selectedServices.push(service.service_id);
+            }
+        });
+        bookingObj['services'] = selectedServices;
+    } else {
+        // Update the booking object for other fields
+        bookingObj[field] = input.value;
+    }
+
+    // Convert the object back to JSON
+    const updatedBookingJSON = JSON.stringify(bookingObj);
+
+    // Update the database
+    updateDatabase(updatedBookingJSON, cell, field);
+
+    // Hide the modal
+    modal.classList.add('hidden');
+};
+
+}
+
+// Function to update the database using AJAX
+function updateDatabase(updatedBookingJSON, cell, field) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'update_booking.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // Update the cell content
+            const updatedBookingObj = JSON.parse(updatedBookingJSON);
+            if (field === "serviceName") {
+                const updatedServiceNames = convertServiceIdsToNames(updatedBookingObj.services);
+                cell.textContent = updatedServiceNames.join(', ');
+            } else {
+                cell.textContent = updatedBookingObj[field];
+            }
+
+            // Update data-booking-json attribute
+            const parentRow = cell.parentNode;
+            parentRow.setAttribute('data-booking-json', updatedBookingJSON);
+        }
+    };
+    xhr.send(updatedBookingJSON);
+}
+
 
     // Listen for a click event on each table cell
     document.querySelectorAll('tbody td').forEach(cell => {
         cell.addEventListener('click', function() {
-            // Highlight the selected cell
-            cell.classList.add('selected-cell');
-
-            // Retrieve the JSON data from the parent row
             const bookingJSON = this.parentNode.getAttribute('data-booking-json');
             const bookingObj = JSON.parse(bookingJSON);
-
-            // Get the field to be edited
             const field = this.getAttribute('data-field');
-
-            // Show the modal to edit the field
-            showModal(bookingObj, field);
-
-            // Remove the highlight from the selected cell
-            cell.classList.remove('selected-cell');
+            showModal(bookingObj, field, cell);
         });
     });
+
+
+    function convertServiceIdsToNames(serviceIds) {
+    const availableServices = <?= $servicesJson ?>;
+    return serviceIds.map(id => {
+        const service = availableServices.find(s => s.service_id === id);
+        return service ? service.service_name : 'Unknown Service';
+    });
+}
 </script>
 
 
