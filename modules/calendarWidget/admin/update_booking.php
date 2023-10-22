@@ -6,6 +6,7 @@ include '../core/functions.php';
 // Get the JSON data from the AJAX request
 $bookingJSON = file_get_contents('php://input');
 $bookingObj = json_decode($bookingJSON, true);
+error_log("Received data: " . print_r($bookingJSON, true));
 
 // Check if the required fields are set in the received object
 if (!isset($bookingObj['bookingId']) || 

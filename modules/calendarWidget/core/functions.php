@@ -133,6 +133,7 @@ function updateBooking($bookingObj) {
 
         // Commit the transaction
         $pdo->commit();
+        error_log("Transaction committed.");
 
         return true;
     } catch (Exception $e) {
