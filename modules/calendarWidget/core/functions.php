@@ -100,35 +100,49 @@ function updateBooking($bookingObj) {
         return false;
     }
 
-    $sql = "UPDATE bookings SET 
-            price = :price, 
-            user_name = :userName, 
-            user_email = :userEmail, 
-            booking_date = :bookingDate, 
-            booking_time = :bookingTime
-            WHERE booking_id = :bookingId";
+    try {
+        // Start transaction
+        $pdo->beginTransaction();
 
-    $stmt = $pdo->prepare($sql);
+        // Prepare and execute the main UPDATE query
+        $sql = "UPDATE bookings SET 
+                price = :price, 
+                user_name = :userName, 
+                user_email = :userEmail, 
+                booking_date = :bookingDate, 
+                booking_time = :bookingTime
+                WHERE booking_id = :bookingId";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':price', $bookingObj['price'], PDO::PARAM_STR);
+        $stmt->bindParam(':userName', $bookingObj['userName'], PDO::PARAM_STR);
+        $stmt->bindParam(':userEmail', $bookingObj['userEmail'], PDO::PARAM_STR);
+        $stmt->bindParam(':bookingDate', $bookingObj['bookingDate'], PDO::PARAM_STR);
+        $stmt->bindParam(':bookingTime', $bookingObj['bookingTime'], PDO::PARAM_STR);
+        $stmt->bindParam(':bookingId', $bookingObj['bookingId'], PDO::PARAM_INT);
+        $stmt->execute();
 
-    $stmt->bindParam(':price', $bookingObj['price'], PDO::PARAM_STR);
-    $stmt->bindParam(':userName', $bookingObj['userName'], PDO::PARAM_STR);
-    $stmt->bindParam(':userEmail', $bookingObj['userEmail'], PDO::PARAM_STR);
-    $stmt->bindParam(':bookingDate', $bookingObj['bookingDate'], PDO::PARAM_STR);
-    $stmt->bindParam(':bookingTime', $bookingObj['bookingTime'], PDO::PARAM_STR);
-    $stmt->bindParam(':bookingId', $bookingObj['bookingId'], PDO::PARAM_INT);
+        // Delete old services for this booking
+        $stmt = $pdo->prepare("DELETE FROM booking_services WHERE booking_id = ?");
+        $stmt->execute([$bookingObj['bookingId']]);
 
-    // Delete old services for this booking
-    $stmt = $pdo->prepare("DELETE FROM booking_services WHERE booking_id = ?");
-    $stmt->execute([$bookingObj['bookingId']]);
+        // Insert new services for this booking
+        $stmt = $pdo->prepare("INSERT INTO booking_services (booking_id, service_id) VALUES (?, ?)");
+        foreach ($bookingObj['services'] as $serviceId) {
+            $stmt->execute([$bookingObj['bookingId'], $serviceId]);
+        }
 
-    // Insert new services for this booking
-    $stmt = $pdo->prepare("INSERT INTO booking_services (booking_id, service_id) VALUES (?, ?)");
-    foreach ($bookingObj['services'] as $serviceId) {
-        $stmt->execute([$bookingObj['bookingId'], $serviceId]);
+        // Commit the transaction
+        $pdo->commit();
+
+        return true;
+    } catch (Exception $e) {
+        // Rollback the transaction in case of an error
+        $pdo->rollback();
+        error_log("Failed to update booking: " . $e->getMessage());
+        return false;
     }
-
-    return true;
 }
+
 
 
 
