@@ -1,6 +1,8 @@
 <?php
 include '../../../core/header.php';
 include '../core/functions.php';
+include '../core/BookingClass.php';
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sort_order = $_POST['sort_order'];
@@ -8,6 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sort_order = 'approaching'; // Default sort order
 }
 $bookings = getAllBookings($sort_order);
+$services = getAllServices();
+$servicesJson = json_encode($services);
 
 checkUserRole('admin');
 ?>
@@ -50,6 +54,19 @@ checkUserRole('admin');
             <tbody>
                 <?php foreach ($bookings as $booking): ?>
                     <?php
+                    // Create an instance of the Booking class
+                    $bookingObj = new Booking(
+                        $booking['booking_id'],
+                        $booking['user_name'],
+                        $booking['user_email'],
+                        $booking['booking_date'],
+                        $booking['booking_time'],
+                        $booking['price']
+                    );
+
+                    // Convert the Booking object to JSON (if needed)
+                    $bookingJSON = $bookingObj->toJSON();
+
                     // Fetch services for each booking
                     $stmt = $pdo->prepare("SELECT service_id FROM booking_services WHERE booking_id = ?");
                     $stmt->execute([$booking['booking_id']]);
@@ -76,38 +93,103 @@ checkUserRole('admin');
                     }
 
                     ?>
-                    <tr class="<?= $highlight ?>">
+                        <tr class="<?= $highlight ?>" data-booking-json='<?= $bookingJSON ?>'>
                         <td>
                             <?= implode(', ', $serviceNames) ?>
                         </td>
-                        <td>
+                        <td data-field="userName">
                             <?= $booking['user_name'] ?>
                         </td>
-                        <td>
+                        <td data-field="userEmail">
                             <?= $booking['user_email'] ?>
                         </td>
-                        <td>
+                        <td data-field="bookingDate">
                             <?= formatDate_mm_dd_yyyy($booking['booking_date']) ?>
                         </td>
-                        <td>
+                        <td data-field="bookingTime">
                             <?= formatTime($booking['booking_time']) ?>
                         </td>
                         <td>
                             <?= array_sum($serviceDurations) ?>
                         </td>
-
                         <td>
                             <?= formatTime(date("H:i", strtotime($booking['booking_time'] . ' + ' . array_sum($serviceDurations) . ' minutes'))) ?>
                         </td>
-                        <td>
+                        <td data-field="price">
                             <?= $booking['price'] ?>
                         </td>
+
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <div id="editModal" class="hidden">
+            <label for="newValue">New Value:</label>
+            <input type="text" id="newValue">
+            <button id="updateBtn">Update</button>
+        </div>
     </div>
 </div>
+
+
+
+<script>
+    // Function to show the modal and handle the update
+    function showModal(bookingObj, field) {
+        const modal = document.getElementById('editModal');
+        const input = document.getElementById('newValue');
+        const updateBtn = document.getElementById('updateBtn');
+        const availableServices = <?= $servicesJson ?>;
+
+        // Show the modal
+        modal.classList.remove('hidden');
+
+        // Set the input value to the current field value
+        input.value = bookingObj[field];
+
+        // Handle the update button click
+        updateBtn.onclick = function() {
+            // Update the booking object
+            bookingObj[field] = input.value;
+
+            // Convert the object back to JSON
+            const updatedBookingJSON = JSON.stringify(bookingObj);
+
+            // Send the updated JSON to the server using AJAX
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'update_booking.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Hide the modal
+                    modal.classList.add('hidden');
+                }
+            };
+            xhr.send(updatedBookingJSON);
+        };
+    }
+
+    // Listen for a click event on each table cell
+    document.querySelectorAll('tbody td').forEach(cell => {
+        cell.addEventListener('click', function() {
+            // Highlight the selected cell
+            cell.classList.add('selected-cell');
+
+            // Retrieve the JSON data from the parent row
+            const bookingJSON = this.parentNode.getAttribute('data-booking-json');
+            const bookingObj = JSON.parse(bookingJSON);
+
+            // Get the field to be edited
+            const field = this.getAttribute('data-field');
+
+            // Show the modal to edit the field
+            showModal(bookingObj, field);
+
+            // Remove the highlight from the selected cell
+            cell.classList.remove('selected-cell');
+        });
+    });
+</script>
 
 
 <?php

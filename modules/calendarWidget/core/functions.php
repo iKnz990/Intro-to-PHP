@@ -87,5 +87,32 @@ function getAllBookings($sort_order = 'asc')
     return $stmt->fetchAll();
 }
 
+function updateBooking($bookingObj) {
+    global $pdo;
+
+    if (!isset($bookingObj['bookingId'])) {
+        return false;
+    }
+
+    $sql = "UPDATE bookings SET 
+            price = :price, 
+            user_name = :userName, 
+            user_email = :userEmail, 
+            booking_date = :bookingDate, 
+            booking_time = :bookingTime
+            WHERE booking_id = :bookingId";
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->bindParam(':price', $bookingObj['price'], PDO::PARAM_STR);
+    $stmt->bindParam(':userName', $bookingObj['userName'], PDO::PARAM_STR);
+    $stmt->bindParam(':userEmail', $bookingObj['userEmail'], PDO::PARAM_STR);
+    $stmt->bindParam(':bookingDate', $bookingObj['bookingDate'], PDO::PARAM_STR);
+    $stmt->bindParam(':bookingTime', $bookingObj['bookingTime'], PDO::PARAM_STR);
+    $stmt->bindParam(':bookingId', $bookingObj['bookingId'], PDO::PARAM_INT);
+
+    return $stmt->execute();
+}
+
 
 ?>

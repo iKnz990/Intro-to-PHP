@@ -320,6 +320,13 @@
   .highlight-past {
     background-color: lightcoral !important;
   }
+  .selected-cell {
+    background-color: #f2f2f2;
+}
+.hidden {
+  display: none;
+}
+
   /* Video Player */
   .video-container {
     width: 100%;
