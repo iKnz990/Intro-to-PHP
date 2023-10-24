@@ -24,6 +24,55 @@ function handleResponse(xml) {
         var resultText = $(this).find('plaintext').text();
         var resultImgSrc = $(this).find('img').attr('src');
 
+        // Block to parse and log the resultText
+        if (title === "Carbohydrates") {  
+            console.log(`\nSection: ${title}`);
+            
+            const rows = resultText.split('\n');
+            const originalHeaders = rows[0].split('|').map(h => h.trim());
+            
+            // Add custom headers for Label and Subject
+            const headers = ['Label', 'Subject'].concat(originalHeaders.slice(2));
+            
+            console.log(`Headers: ${headers.join(' | ')}`);
+            
+            let currentLabel = "";
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].split('|').map(cell => cell.trim());
+                
+                let rowObj = {};
+                
+                // Check for a label at the beginning of the row
+                if (cells[0] !== "" && isNaN(cells[1])) {
+                    currentLabel = cells.shift();  // Remove the label cell
+                }
+                
+                // Apply the current label
+                rowObj["Label"] = currentLabel;
+                
+                // Capture the subject (e.g., "tea", "milk")
+                if (cells[0] !== "") {
+                    rowObj["Subject"] = cells.shift();
+                } else {
+                    rowObj["Subject"] = cells[1];
+                    cells.splice(1, 1);  // Remove the subject cell
+                }
+                
+                for (let j = 2; j < headers.length; j++) {
+                    rowObj[headers[j]] = cells[j - 2] || "";
+                }
+                
+                // Correct for shifted cells
+                if (rowObj["mean value"] === "") {
+                    rowObj["mean value"] = rowObj["% daily value"];
+                    rowObj["% daily value"] = rowObj["range"];
+                    rowObj["range"] = cells[cells.length - 1] || "";  // Capture the last cell as the range
+                }
+                
+                console.log(`Row: ${JSON.stringify(rowObj)}`);
+            }
+        }
+
         textResultsHtml += "<h3>" + title + "</h3>";
         imgResultsHtml += "<h3>" + title + "</h3>";
 
@@ -47,6 +96,7 @@ function handleResponse(xml) {
 }
 
 
+
 function sendQuery() {
     var input = $("#query-input").val();
     if (input) {
@@ -66,7 +116,7 @@ function sendQuery() {
         }
     });
 
-    $("#query-input").val('');  // Clear the text box
+    $("#query-input").val('');
 }
 
 function updateQueryHistory() {
