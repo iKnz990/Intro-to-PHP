@@ -6,6 +6,7 @@ checkUserRole('admin');
 <div class="content-container">
     <div class="content">
         <script src="core/wolfram.js"></script>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
 
 
         <h1>Wolfram</h1>
@@ -16,6 +17,13 @@ checkUserRole('admin');
 
         <h2>Query History</h2>
         <ul id="query-history"></ul>
+
+        <select id="section-select">
+        <option value="" disabled selected>Select a section</option>
+        </select>
+        <button id="show-infographic">Show Infographic</button>
+
+            <div id="infographic"></div>
 
         <h3>Results</h3>
         <button id="toggle-button">Display Text or Image</button>
