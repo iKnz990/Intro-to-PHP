@@ -1,57 +1,45 @@
-# WDV341 Repository
+# Welcome to My WDV341 Repository! 🎉
 
-## Overview
-The `WDV341` repository contains a collection of PHP projects and assignments. It is structured with core components, assets, and various modules that demonstrate different aspects of PHP programming.
+## What's Inside? 🌐
+Hey there! Welcome to my `WDV341` repository. This is where I keep all my PHP projects and assignments. You'll find core components, assets, and a bunch of modules that show off what PHP can do.
 
-## Core Components
-- **.htaccess**: Configuration file for use on web servers running the Apache Web Server software.
-- **core/footer.php**: Standard footer for the projects.
-- **core/header.php**: Standard header for the projects. This file contains the basic structure of the HTML header, including meta tags, title, and links to stylesheets.
-- **core/functions.php**: Contains common PHP functions used across the projects.
-- **core/registration/login.php**: Handles the login functionality for users.
-- **core/registration/register.php**: Manages the registration process for new users.
-- **core/registration/userLogin.php**: Contains the user login form.
-- **core/registration/userRegister.php**: Contains the user registration form.
+## The Building Blocks 🛠️
+- **.htaccess**: This is how I configure my Apache Web Server.
+- **core/footer.php**: This footer ties all my projects together.
+- **core/header.php**: Here's where I set up my HTML headers, meta tags, and styles.
+- **core/functions.php**: This is my go-to for all kinds of PHP functions.
+- **core/registration/**: This is where the magic happens for user login and registration.
 
-## Assets
-- **assets/css/style.css**: Main stylesheet for the projects.
+## The Look 🎨
+- **assets/css/style.css**: This stylesheet makes sure everything looks good.
 
-## Modules
-1. **Definitions**:
-   - **Path**: `modules/definitions/index.php`
-   - **Description**: A module that provides definitions related to the course.
+## The Fun Stuff 📦
 
-2. **Form Handling**:
-   - **Path**: `modules/form/index.php`
-   - **Handler**: `modules/form/handler.php`
-   - **Description**: Demonstrates form handling in PHP.
+### The Classics
+1. **Definitions**: Think of this as my PHP dictionary.
+2. **Form Handling**: This is where I play around with forms.
+3. **PHP Basics**: Back to square one, but in a good way.
+4. **PHP Functions**: Here's where PHP shows off a bit.
 
-3. **PHP Basics**:
-   - **Path**: `modules/phpBasics/index.php`
-   - **Description**: Basic PHP exercises and demonstrations.
+### The New & Improved
 
-4. **PHP Functions**:
-   - **Path**: `modules/phpFunctions/index.php`
-   - **Description**: Demonstrates various PHP functions.
+#### My Calendar Module 📅
+- **What It Does**: It's all about managing appointments and services.
+- **Cool Features**: It's got something for both admins and users.
+- **How to Use**: Just go to the `calendarWidget` folder and open `index.php`.
 
-5. **Calendar Module**:
-   - **Path**: `modules/calendarWidget/index.php`
-   - **Description**: A module for managing calendar-related tasks.
-   - **TODOs**:
-     - Implement Booking Delete/Edit functionality.
-     - Implement Sorting for ~~Bookings~~ and Services.
-     - Provide options to view bookings and services for specific days, weeks, or months.
-     - Add navigation controls to easily switch between different dates or time periods in the calendar.
-     - Enable searching by keywords, dates, or other relevant criteria.
-     - Set up logging and auditing mechanisms to track changes to bookings and services.
+**JavaScript Deep Dive**:  
+In `view_bookings.php`, I've got some neat JavaScript that controls booking data. Functions like `showModal()` pop up edit modals, and `updateDatabase()` updates bookings with AJAX.
 
-6. **HTML5 Video Player**:
-   - **Path**: `modules/html5Video/index.php`
-   - **Description**: Demonstrates the use of an HTML5 video player.
+#### Wolfram Visualization 📊
+- **What It Does**: Visualizes food data, because why not?
+- **Cool Features**: Uses Wolfram API and D3.js for some cool visuals.
+- **How to Use**: Head to `wolframVisualization` and open `index.php`.
 
-7. **YouTube Video Player**:
-   - **Path**: `modules/youtubeVideo/index.php`
-   - **Description**: Demonstrates embedding a YouTube video into a webpage.
+#### Paypal Module 💰
+- **What It Does**: This is where I handle subscriptions for monthly content audits.
+- **Cool Features**: It's got a PayPal button and uses the PayPal SDK.
+- **How to Use**: Just go to `paypal` and open `index.php`.
 
-## Main Page
-- **index.php**: The main landing page of the repository. This page serves as the entry point to the various modules and components of the repository.
+## The Grand Entrance 🏠
+- **index.php**: This is your starting point. Welcome to my PHP world!
