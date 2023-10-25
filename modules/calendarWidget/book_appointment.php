@@ -40,8 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label class="form-label" for="service">Choose your services:</label>
             <!-- Services -->
             <div class="form-group">
-                <?php foreach ($services as $service): ?>
-                    <?php if ($service['service_id'] != -1): // Skip the placeholder service ?>
+                <?php foreach ($services as $service) : ?>
+                    <?php if ($service['service_id'] != -1) : // Skip the placeholder service 
+                    ?>
                         <?php
                         $durationInMinutes = $service['service_duration'];
                         $hours = floor($durationInMinutes / 60);
@@ -64,8 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             );
                         }
                         ?>
-                        <input type="checkbox" name="service_id[]" value="<?= $service['service_id'] ?>"
-                            data-price="<?= $service['price'] ?>" data-duration="<?= $service['service_duration'] ?>">
+                        <input type="checkbox" name="service_id[]" value="<?= $service['service_id'] ?>" data-price="<?= $service['price'] ?>" data-duration="<?= $service['service_duration'] ?>">
 
                         <?= $formattedServiceInfo ?>
                     <?php endif; ?>
@@ -75,14 +75,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="form-group">
             <label class="form-label" for="username">Your Name:</label>
-            <input class="form-input" type="text" id="username" name="user_name"
-                value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?>" required>
+            <input class="form-input" type="text" id="username" name="user_name" value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?>" required>
         </div>
 
         <div class="form-group">
             <label class="form-label" for="email">Your Email:</label>
-            <input class="form-input" type="email" id="email" name="user_email"
-                value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>" required>
+            <input class="form-input" type="email" id="email" name="user_email" value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>" required>
             <!-- Sets Email based on the session -->
         </div>
 
@@ -119,7 +117,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
 <script>
-
     // Function to populate time slots in the dropdown
     function populateTimeSlots() {
         const timeSelect = document.getElementById('time');
@@ -147,21 +144,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         document.getElementById('price').textContent = `$${total.toFixed(2)}`;
         document.getElementById('totalTime').textContent = `${totalTime} minutes`;
 
-    // Calculate ending time based on selected time and total duration
-    const selectedTime = document.getElementById('time').value;
-    if (selectedTime) {
-        const [hour, minute] = selectedTime.split(':').map(Number);
-        const endTime = new Date(0, 0, 0, hour, minute + totalTime);
-        const endHour24 = endTime.getHours();
-        const endMinute = endTime.getMinutes();
+        // Calculate ending time based on selected time and total duration
+        const selectedTime = document.getElementById('time').value;
+        if (selectedTime) {
+            const [hour, minute] = selectedTime.split(':').map(Number);
+            const endTime = new Date(0, 0, 0, hour, minute + totalTime);
+            const endHour24 = endTime.getHours();
+            const endMinute = endTime.getMinutes();
 
-        // Convert to 12-hour format with AM/PM
-        const ampm = endHour24 >= 12 ? 'PM' : 'AM';
-        const endHour12 = endHour24 > 12 ? endHour24 - 12 : (endHour24 === 0 ? 12 : endHour24);
+            // Convert to 12-hour format with AM/PM
+            const ampm = endHour24 >= 12 ? 'PM' : 'AM';
+            const endHour12 = endHour24 > 12 ? endHour24 - 12 : (endHour24 === 0 ? 12 : endHour24);
 
-        document.getElementById('endTime').textContent = `${endHour12}:${endMinute < 10 ? '0' : ''}${endMinute} ${ampm}`;
+            document.getElementById('endTime').textContent = `${endHour12}:${endMinute < 10 ? '0' : ''}${endMinute} ${ampm}`;
+        }
     }
-}
 
     // Populate time slots when the page loads
     document.addEventListener('DOMContentLoaded', populateTimeSlots);
@@ -174,7 +171,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         checkbox.addEventListener('change', calculateTotal);
     });
     document.getElementById('time').addEventListener('change', calculateTotal);
-
 </script>
 
 

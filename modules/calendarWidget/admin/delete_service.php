@@ -23,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Redirect to manage_services.php after updating the service, message script located in manage_services.php
     header("Location: manage_services.php?message=Service deleted successfully!");
     exit;
-
 }
 
 checkUserRole('admin');
@@ -40,13 +39,12 @@ checkUserRole('admin');
     <div class="content">
 
 
-        <?php if (!$serviceDeleted): ?>
-            <form action="delete_service.php?id=<?= $serviceId ?>" method="post"
-                onsubmit="this.querySelector('input[type=submit]').disabled = true;">
+        <?php if (!$serviceDeleted) : ?>
+            <form action="delete_service.php?id=<?= $serviceId ?>" method="post" onsubmit="this.querySelector('input[type=submit]').disabled = true;">
                 <p>Are you sure you want to delete this service?</p>
                 <input type="submit" value="Delete Service">
             </form>
-        <?php else: ?>
+        <?php else : ?>
             <p>Service deleted successfully!</p>
         <?php endif; ?>
     </div>

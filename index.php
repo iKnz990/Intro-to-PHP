@@ -11,7 +11,7 @@ include 'core/header.php';
    }
    ?>
 
-   <?php if (!isLoggedIn()): ?>
+   <?php if (!isLoggedIn()) : ?>
       <h3>
          <a href="<?= BASE_URL ?>core/registration/userLogin.php">Login</a>
          or

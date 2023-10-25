@@ -143,8 +143,3 @@ function updateBooking($bookingObj) {
         return false;
     }
 }
-
-
-
-
-?>

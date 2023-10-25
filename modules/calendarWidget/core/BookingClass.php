@@ -106,4 +106,3 @@ class Booking {
         return $this;
     }
 }
-?>

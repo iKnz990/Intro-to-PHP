@@ -25,4 +25,3 @@ if (updateBooking($bookingObj)) {
 } else {
     echo 'Failed to update booking';
 }
-?>

@@ -39,24 +39,20 @@ checkUserRole('admin');
             <form action="edit_service.php?id=<?= $serviceId ?>" method="post">
                 <div class="form-group">
                     <label for="serviceName" class="form-label">Service Name:</label>
-                    <input type="text" id="serviceName" name="service_name" value="<?= $service['service_name'] ?>"
-                        class="form-input" required>
+                    <input type="text" id="serviceName" name="service_name" value="<?= $service['service_name'] ?>" class="form-input" required>
                 </div>
                 <div class="form-group">
                     <label for="price" class="form-label">Price:</label>
-                    <input type="number" id="price" name="price" class="form-input" value="<?= $service['price'] ?>"
-                        required>
+                    <input type="number" id="price" name="price" class="form-input" value="<?= $service['price'] ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="duration" class="form-label">Duration (in mins):</label>
-                    <input type="number" id="duration" name="service_duration"
-                        value="<?= $service['service_duration'] ?>" class="form-input" required>
+                    <input type="number" id="duration" name="service_duration" value="<?= $service['service_duration'] ?>" class="form-input" required>
                 </div>
 
                 <div class="form-group">
                     <label for="description" class="form-label">Description:</label>
-                    <textarea id="description" name="description"
-                        class="form-textarea"><?= $service['description'] ?></textarea>
+                    <textarea id="description" name="description" class="form-textarea"><?= $service['description'] ?></textarea>
                 </div>
 
                 <input type="submit" value="Update Service" class="form-button">

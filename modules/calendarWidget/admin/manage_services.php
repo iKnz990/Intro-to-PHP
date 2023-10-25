@@ -59,12 +59,12 @@ checkUserRole('admin');
                         return $service['service_id'] != -1;
                     });
 
-                    if (empty($filteredServices)): ?>
+                    if (empty($filteredServices)) : ?>
                         <tr>
                             <td colspan="4">No services available at the moment.</td>
                         </tr>
-                    <?php else: ?>
-                        <?php foreach ($filteredServices as $service): ?>
+                    <?php else : ?>
+                        <?php foreach ($filteredServices as $service) : ?>
                             <tr>
                                 <td>
                                     <?= $service['service_name'] ?>
