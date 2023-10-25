@@ -7,7 +7,7 @@ var formattedData = {};  // Store formatted data
 
 
 // initialHide() only once
-$(document).ready(function() {
+$(document).ready(function () {
     initialHide();
 });
 
@@ -19,7 +19,7 @@ $(document).ready(function () {
     });
 
     $("#toggle-button").click(function () {
-        
+
         toggleDisplayMode();
         event.stopPropagation();
     });
@@ -38,12 +38,12 @@ $(document).ready(function () {
     attachOnListener();
 });
 
-function initialHide(){
-        // Initially hide the D3 Infographic and Wolfram Results sections
-        toggleVisibility("d3InfoResults", false);
-        toggleVisibility("wolfram-results", false); 
-        toggleVisibility("wolframRawResults", false); 
-    
+function initialHide() {
+    // Initially hide the D3 Infographic and Wolfram Results sections
+    toggleVisibility("d3InfoResults", false);
+    toggleVisibility("wolfram-results", false);
+    toggleVisibility("wolframRawResults", false);
+
 }
 // Function to attach the "on" listener
 function attachOnListener() {
@@ -68,7 +68,7 @@ function attachOffListener() {
         console.log("Toggle OFF");
         const isCurrentlyVisible = $("#wolfram-results").is(":visible");
         toggleVisibility("wolfram-results", !isCurrentlyVisible);
-        
+
         // Change the arrow to point downwards
         $("#toggle-arrow").html("&#9660;");
 
@@ -121,15 +121,15 @@ function toggleD3InfographicVisibility(show) {
     }
 }
 
-function fillDropDown(title){
-               
-        // Filter out sections that have not been parsed before adding to availableSections
-        //TODO: Parse these sections correctly
-        if (!["Input interpretation", "Individual nutrition facts", "Physical properties", "Image"].includes(title)) {
-            if (!availableSections.includes(title)) {
-                availableSections.push(title);
-            }
+function fillDropDown(title) {
+
+    // Filter out sections that have not been parsed before adding to availableSections
+    //TODO: Parse these sections correctly
+    if (!["Input interpretation", "Individual nutrition facts", "Physical properties", "Image"].includes(title)) {
+        if (!availableSections.includes(title)) {
+            availableSections.push(title);
         }
+    }
 }
 
 // Function to send the query to the Wolfram API
@@ -166,7 +166,7 @@ function updateQueryHistory() {
 function updateSectionDropdown() {
     const select = document.getElementById('section-select');
     select.innerHTML = availableSections.map(section => `<option value="${section}">${section}</option>`).join('');
-  }
+}
 
 // Function to handle the response from the Wolfram API
 function handleResponse(xml) {
@@ -181,9 +181,9 @@ function handleResponse(xml) {
         var resultImgSrc = $(this).find('img').attr('src');
 
         fillDropDown(title);
-        
 
-        
+
+
         textResultsHtml += "<h3>" + title + "</h3>";
         imgResultsHtml += "<h3>" + title + "</h3>";
 
@@ -205,41 +205,41 @@ function handleResponse(xml) {
 
     updateDisplay();
     updateSectionDropdown();
-    toggleVisibility("wolframRawResults", true); 
-    toggleVisibility("wolfram-results", true); 
+    toggleVisibility("wolframRawResults", true);
+    toggleVisibility("wolfram-results", true);
     renderInfographic();
-    
+
 }
 
 // Function to parse and format data
 function parseAndFormatData(selectedSection, sectionText) {
     // Check if the selected section matches the title
-    if (selectedSection) {  
+    if (selectedSection) {
         console.log(`\nSection: ${selectedSection}`);
-        
+
         const rows = sectionText.split('\n');
         const originalHeaders = rows[0].split('|').map(h => h.trim());
-        
+
         // Add custom headers for Label and Subject
         const headers = ['Label', 'Subject'].concat(originalHeaders.slice(2));
-        
+
         console.log(`Headers: ${headers.join(' | ')}`);
-        
+
         let currentLabel = "";
         let formattedRows = [];
         for (let i = 1; i < rows.length; i++) {
             const cells = rows[i].split('|').map(cell => cell.trim());
-            
+
             let rowObj = {};
-            
+
             // Check for a label at the beginning of the row
             if (cells[0] !== "" && isNaN(cells[1])) {
                 currentLabel = cells.shift();  // Remove the label cell
             }
-            
+
             // Apply the current label
             rowObj["Label"] = currentLabel;
-            
+
             // Capture the subject (e.g., "tea", "milk")
             if (cells[0] !== "") {
                 rowObj["Subject"] = cells.shift();
@@ -247,21 +247,21 @@ function parseAndFormatData(selectedSection, sectionText) {
                 rowObj["Subject"] = cells[1];
                 cells.splice(1, 1);  // Remove the subject cell
             }
-            
+
             for (let j = 2; j < headers.length; j++) {
                 rowObj[headers[j]] = cells[j - 2] || "";
             }
-            
+
             // Correct for shifted cells
             if (rowObj["mean value"] === "") {
                 rowObj["mean value"] = rowObj["% daily value"];
                 rowObj["% daily value"] = rowObj["range"];
                 rowObj["range"] = cells[cells.length - 1] || "";  // Capture the last cell as the range
             }
-            
+
             formattedRows.push(rowObj);
         }
-        
+
         // Store the formatted rows in the global formattedData object
         formattedData[selectedSection] = formattedRows;
     }
@@ -271,113 +271,113 @@ function parseAndFormatData(selectedSection, sectionText) {
 
 
 
-  // Function to render the infographic
+// Function to render the infographic
 function renderInfographic() {
     let selectedSection = document.getElementById('section-select').value;
-    
+
     // Convert textResultsHtml to a DOM object
     const parser = new DOMParser();
     const doc = parser.parseFromString(textResultsHtml, 'text/html');
-    
+
     // Find the <h3> element that matches the selected section
     const sectionHeader = Array.from(doc.querySelectorAll('h3')).find(h3 => h3.textContent === selectedSection);
-    
+
     // Initialize sectionText as an empty string
     let sectionText = "";
-    
+
     if (sectionHeader) {
         // Get the next sibling (should be the <p> element containing the text)
         const sectionParagraph = sectionHeader.nextElementSibling;
-        
+
         if (sectionParagraph) {
             sectionText = sectionParagraph.textContent;
         }
     }
-    
+
     // Call the function to populate formattedData based on the selected section
     parseAndFormatData(selectedSection, sectionText);
-    
+
     console.log(`Selected Section: ${selectedSection}`);
     console.log(`Formatted Data: ${JSON.stringify(formattedData[selectedSection], null, 2)}`);
-  
-  // Clear any existing SVG
-  d3.select("#chartArea").select("svg").remove();
 
-  // Get the selected section from the dropdown
-  selectedSection = document.getElementById('section-select').value;
+    // Clear any existing SVG
+    d3.select("#chartArea").select("svg").remove();
 
-  // Get the data for the selected section
-  const dataForSection = formattedData[selectedSection];
+    // Get the selected section from the dropdown
+    selectedSection = document.getElementById('section-select').value;
 
-  // Aggregate the data by subject
-  const aggregatedData = {};
-  dataForSection.forEach((d) => {
-    if (!aggregatedData[d.Subject]) {
-      aggregatedData[d.Subject] = {};
-    }
-    aggregatedData[d.Subject][d.Label] = parseFloat(d['mean value'].split(' ')[0]);
-  });
+    // Get the data for the selected section
+    const dataForSection = formattedData[selectedSection];
 
-  // Transform aggregatedData into an array of objects
-  const dataForD3 = Object.keys(aggregatedData).map((subject) => {
-    return {
-      subject,
-      ...aggregatedData[subject],
-    };
-  });
+    // Aggregate the data by subject
+    const aggregatedData = {};
+    dataForSection.forEach((d) => {
+        if (!aggregatedData[d.Subject]) {
+            aggregatedData[d.Subject] = {};
+        }
+        aggregatedData[d.Subject][d.Label] = parseFloat(d['mean value'].split(' ')[0]);
+    });
 
-  // Set up SVG dimensions
-  const width = 800;
-  const height = 400;
-  const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+    // Transform aggregatedData into an array of objects
+    const dataForD3 = Object.keys(aggregatedData).map((subject) => {
+        return {
+            subject,
+            ...aggregatedData[subject],
+        };
+    });
 
-  // Create SVG element
-  const svg = d3.select("#chartArea").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    // Set up SVG dimensions
+    const width = 800;
+    const height = 400;
+    const margin = { top: 20, right: 20, bottom: 30, left: 40 };
 
-  // Create scales
-  const x0 = d3.scaleBand()
-    .domain(dataForD3.map(d => d.subject))
-    .rangeRound([margin.left, width - margin.right])
-    .paddingInner(0.1);
+    // Create SVG element
+    const svg = d3.select("#chartArea").append("svg")
+        .attr("width", width)
+        .attr("height", height);
 
-  const x1 = d3.scaleBand()
-    .domain(Object.keys(aggregatedData[Object.keys(aggregatedData)[0]]))
-    .rangeRound([0, x0.bandwidth()])
-    .padding(0.05);
+    // Create scales
+    const x0 = d3.scaleBand()
+        .domain(dataForD3.map(d => d.subject))
+        .rangeRound([margin.left, width - margin.right])
+        .paddingInner(0.1);
 
-  const y = d3.scaleLinear()
-    .domain([0, d3.max(dataForD3, d => d3.max(Object.values(d).slice(1)))])
-    .rangeRound([height - margin.bottom, margin.top]);
+    const x1 = d3.scaleBand()
+        .domain(Object.keys(aggregatedData[Object.keys(aggregatedData)[0]]))
+        .rangeRound([0, x0.bandwidth()])
+        .padding(0.05);
 
-  // Create axes
-  const xAxis = svg.append("g")
-    .attr("transform", `translate(0,${height - margin.bottom})`)
-    .call(d3.axisBottom(x0));
+    const y = d3.scaleLinear()
+        .domain([0, d3.max(dataForD3, d => d3.max(Object.values(d).slice(1)))])
+        .rangeRound([height - margin.bottom, margin.top]);
 
-  const yAxis = svg.append("g")
-    .attr("transform", `translate(${margin.left},0)`)
-    .call(d3.axisLeft(y));
+    // Create axes
+    const xAxis = svg.append("g")
+        .attr("transform", `translate(0,${height - margin.bottom})`)
+        .call(d3.axisBottom(x0));
 
-        
+    const yAxis = svg.append("g")
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(d3.axisLeft(y));
+
+
     // Define a color scale
     const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
-  // Create bars
-  svg.append("g")
-    .selectAll("g")
-    .data(dataForD3)
-    .enter().append("g")
-      .attr("transform", d => `translate(${x0(d.subject)},0)`)
-    .selectAll("rect")
-    .data(d => Object.keys(d).slice(1).map(key => ({key, value: d[key]})))
-    .enter().append("rect")
-      .attr("x", d => x1(d.key))
-      .attr("y", d => y(d.value))
-      .attr("width", x1.bandwidth())
-      .attr("height", d => y(0) - y(d.value))
-      .attr("fill", d => colorScale(d.key));
+    // Create bars
+    svg.append("g")
+        .selectAll("g")
+        .data(dataForD3)
+        .enter().append("g")
+        .attr("transform", d => `translate(${x0(d.subject)},0)`)
+        .selectAll("rect")
+        .data(d => Object.keys(d).slice(1).map(key => ({ key, value: d[key] })))
+        .enter().append("rect")
+        .attr("x", d => x1(d.key))
+        .attr("y", d => y(d.value))
+        .attr("width", x1.bandwidth())
+        .attr("height", d => y(0) - y(d.value))
+        .attr("fill", d => colorScale(d.key));
 
     // Add Legend
     const legend = svg.append("g")
@@ -387,7 +387,7 @@ function renderInfographic() {
         .selectAll("g")
         .data(Object.keys(aggregatedData[Object.keys(aggregatedData)[0]]).slice().reverse())
         .enter().append("g")
-            .attr("transform", (d, i) => `translate(0,${i * 20})`);
+        .attr("transform", (d, i) => `translate(0,${i * 20})`);
 
     legend.append("rect")
         .attr("x", width - 19)
@@ -401,6 +401,6 @@ function renderInfographic() {
         .attr("dy", "0.32em")
         .text(d => d);
 
-  // Add labels, titles, and other elements as needed
+    // Add labels, titles, and other elements as needed
 }
 
